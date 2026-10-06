@@ -1,0 +1,522 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Verify Mobile | VeriTrust AI</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/verify_mobile.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- ================================================= -->
+    <!-- BACKGROUND -->
+    <!-- ================================================= -->
+
+    <div class="background-grid"></div>
+
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+
+
+    <!-- ================================================= -->
+    <!-- NAVBAR -->
+    <!-- ================================================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <span>VeriTrust AI</span>
+
+        </div>
+
+        <div class="nav-security">
+
+            <i class="fa-solid fa-lock"></i>
+
+            Secure Registration
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================= -->
+    <!-- MAIN -->
+    <!-- ================================================= -->
+
+    <main class="main-container">
+
+        <section class="verification-card">
+
+
+            <!-- ========================================= -->
+            <!-- LEFT -->
+            <!-- ========================================= -->
+
+            <div class="info-section">
+
+                <div class="security-icon">
+
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                </div>
+
+                <span class="eyebrow">
+                    MOBILE VERIFICATION
+                </span>
+
+                <h1>
+                    Secure your
+                    <span>account.</span>
+                </h1>
+
+                <p>
+                    Verify your mobile number to complete
+                    your VeriTrust AI account registration.
+                </p>
+
+
+                <div class="security-list">
+
+                    <div class="security-item">
+
+                        <div class="item-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>Identity Protection</strong>
+
+                            <small>
+                                Your verification is securely processed.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <div class="item-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>Encrypted Data</strong>
+
+                            <small>
+                                Your information remains protected.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <div class="item-icon">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>Trusted Verification</strong>
+
+                            <small>
+                                Built for secure employee verification.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- RIGHT -->
+            <!-- ========================================= -->
+
+            <div class="otp-section">
+
+                <!-- STEP INDICATOR -->
+
+                <div class="step-indicator">
+
+                    <div class="step completed">
+
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>Account</strong>
+
+                            <small>
+                                Details
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-line active"></div>
+
+
+                    <div class="step current">
+
+                        <span>2</span>
+
+                        <div>
+
+                            <strong>Mobile</strong>
+
+                            <small>
+                                Verification
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step-line"></div>
+
+
+                    <div class="step">
+
+                        <span>3</span>
+
+                        <div>
+
+                            <strong>Complete</strong>
+
+                            <small>
+                                Account
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OTP HEADER -->
+
+                <div class="otp-header">
+
+                    <div class="otp-icon">
+
+                        <i class="fa-solid fa-mobile-screen"></i>
+
+                    </div>
+
+                    <h2>
+                        Verify your mobile number
+                    </h2>
+
+                    <p>
+                        We've sent a 6-digit verification code
+                        to your registered mobile number.
+                    </p>
+
+                </div>
+
+
+                <!-- ===================================== -->
+                <!-- MOBILE DISPLAY -->
+                <!-- ===================================== -->
+
+                <div class="mobile-display">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <span>
+                        +91 {{ mobile|slice:"0:2" }}******{{ mobile|slice:"-2:" }}
+                    </span>
+
+                    <a href="{% url 'register' %}">
+                        Change
+                    </a>
+
+                </div>
+
+
+                <!-- ===================================== -->
+                <!-- MESSAGES -->
+                <!-- ===================================== -->
+
+                {% if messages %}
+
+                    <div class="messages">
+
+                        {% for message in messages %}
+
+                            <div class="message {{ message.tags }}">
+
+                                {% if message.tags == "success" %}
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                {% elif message.tags == "error" %}
+
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                                {% else %}
+
+                                    <i class="fa-solid fa-circle-info"></i>
+
+                                {% endif %}
+
+                                {{ message }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- ===================================== -->
+                <!-- OTP FORM -->
+                <!-- ===================================== -->
+
+                <form
+                    method="POST"
+                    id="otpForm"
+                    autocomplete="off"
+                >
+
+                    {% csrf_token %}
+
+
+                    <!-- ACTION -->
+
+                    <input
+                        type="hidden"
+                        name="action"
+                        id="otpAction"
+                        value="verify"
+                    >
+
+
+                    <!-- OTP LABEL -->
+
+                    <label for="otpInput">
+                        Enter verification code
+                    </label>
+
+
+                    <!-- OTP INPUTS -->
+
+                    <div
+                        class="otp-inputs"
+                        id="otpInputs"
+                    >
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            class="otp-input"
+                            autocomplete="one-time-code"
+                            autofocus
+                        >
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            class="otp-input"
+                        >
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            class="otp-input"
+                        >
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            class="otp-input"
+                        >
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            class="otp-input"
+                        >
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            class="otp-input"
+                        >
+
+                    </div>
+
+
+                    <!-- COMBINED OTP -->
+
+                    <input
+                        type="hidden"
+                        name="otp"
+                        id="otpValue"
+                    >
+
+
+                    <!-- ================================= -->
+                    <!-- OTP HELP -->
+                    <!-- ================================= -->
+
+                    <div class="otp-help">
+
+                        <span>
+                            Didn't receive the code?
+                        </span>
+
+                        <button
+                            type="submit"
+                            name="action"
+                            value="resend"
+                            class="resend-btn"
+                            id="resendBtn"
+                        >
+
+                            <i class="fa-solid fa-rotate-right"></i>
+
+                            Resend OTP
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- ================================= -->
+                    <!-- VERIFY BUTTON -->
+                    <!-- ================================= -->
+
+                    <button
+                        type="submit"
+                        class="verify-btn"
+                        id="verifyBtn"
+                        name="action"
+                        value="verify"
+                    >
+
+                        <span>
+                            Verify & Continue
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- ===================================== -->
+                <!-- SECURITY NOTE -->
+                <!-- ===================================== -->
+
+                <div class="secure-note">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <span>
+                        Your mobile number is securely verified
+                        and protected by VeriTrust AI.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================================= -->
+    <!-- FOOTER -->
+    <!-- ================================================= -->
+
+    <footer>
+
+        <span>
+            © 2026 VeriTrust AI
+        </span>
+
+        <div>
+
+            Privacy Policy
+
+            <span>•</span>
+
+            Terms of Service
+
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script src="{% static 'js/verify_mobile.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1205 @@
+﻿{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Identity Verification | VeriTrust AI</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/identity_verification.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<div class="verification-page">
+
+
+    <!-- =====================================================
+         TOP NAVIGATION
+    ====================================================== -->
+
+    <header class="verification-header">
+
+        <div class="brand-area">
+
+            <div class="brand-mark">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div>
+                <div class="brand-name">
+                    VeriTrust <span>AI</span>
+                </div>
+
+                <div class="brand-caption">
+                    Secure Identity Platform
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="header-center">
+
+            <span class="header-label">
+                IDENTITY VERIFICATION
+            </span>
+
+            <span class="header-divider"></span>
+
+            <span class="header-secure">
+                <i class="fa-solid fa-lock"></i>
+                Secure & Encrypted
+            </span>
+
+        </div>
+
+
+        <div class="header-status">
+
+            <span class="live-dot"></span>
+
+            <span>Verification Session Active</span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN WRAPPER
+    ====================================================== -->
+
+    <main class="verification-container">
+
+
+        <!-- =================================================
+             HERO / PROGRESS
+        ================================================== -->
+
+        <section class="verification-hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <i class="fa-solid fa-fingerprint"></i>
+                    DIGITAL IDENTITY CHECK
+                </div>
+
+                <h1>
+                    Verify your identity
+                    <span>securely.</span>
+                </h1>
+
+                <p>
+                    Complete your document and live selfie verification
+                    to establish a trusted digital identity.
+                </p>
+
+            </div>
+
+
+            <div class="hero-progress">
+
+                <div class="progress-score">
+
+                    <span class="progress-label">
+                        VERIFICATION PROGRESS
+                    </span>
+
+                    <strong id="progressPercentage">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div id="progressFill"
+                         class="progress-fill"
+                         style="width:0%;">
+                    </div>
+
+                </div>
+
+
+                <div class="progress-status">
+
+                    <span id="overallStatus">
+                        In Progress
+                    </span>
+
+                    <span>
+                        3 verification checks
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STEP NAVIGATION
+        ================================================== -->
+
+        <div class="verification-steps">
+
+            <div class="step-item active">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-text">
+                    <strong>Documents</strong>
+                    <span>Aadhaar & PAN</span>
+                </div>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step-item">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-text">
+                    <strong>Identity Match</strong>
+                    <span>AI validation</span>
+                </div>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step-item">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-text">
+                    <strong>Live Selfie</strong>
+                    <span>Face verification</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DOCUMENT VERIFICATION
+        ================================================== -->
+
+        <section class="workspace-card">
+
+
+            <!-- SECTION HEADER -->
+
+            <div class="workspace-header">
+
+                <div>
+
+                    <div class="section-kicker">
+                        STEP 01
+                    </div>
+
+                    <h2>
+                        Document verification
+                    </h2>
+
+                    <p>
+                        Upload clear images of your identity documents.
+                    </p>
+
+                </div>
+
+
+                <div class="security-badge">
+
+                    <i class="fa-solid fa-shield-check"></i>
+
+                    <span>
+                        AI Powered
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DOCUMENT GRID
+            ================================================== -->
+
+            <div class="document-grid">
+
+
+                <!-- =============================================
+                     AADHAAR CARD
+                ============================================== -->
+
+                <section id="aadhaarCard"
+                         class="document-card aadhaar-card">
+
+
+                    <div class="document-card-header">
+
+                        <div class="document-title-area">
+
+                            <div class="document-icon aadhaar-icon">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Aadhaar Card
+                                </h3>
+
+                                <span>
+                                    Front & Back required
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <span id="aadhaarStatus"
+                              class="status-badge pending">
+                            Pending
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =========================================
+                         AADHAAR UPLOAD SECTION
+                    ========================================== -->
+
+                    <div id="aadhaarUploadSection"
+                         class="document-upload-section">
+
+
+                        <div class="upload-grid">
+
+
+                            <!-- FRONT -->
+
+                            <div class="upload-column">
+
+                                <div class="upload-label-row">
+
+                                    <span>
+                                        <b>01</b>
+                                        Front side
+                                    </span>
+
+                                    <span class="required-tag">
+                                        Required
+                                    </span>
+
+                                </div>
+
+
+                                <label id="aadhaarFrontBox"
+                                       class="document-upload-box"
+                                       for="aadhaarFront">
+
+                                    <input type="file"
+                                           id="aadhaarFront"
+                                           name="aadhaar_front"
+                                           accept="image/*"
+                                           hidden>
+
+
+                                    <div id="aadhaarFrontPlaceholder"
+                                         class="upload-placeholder">
+
+                                        <div class="upload-plus">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </div>
+
+                                        <strong>
+                                            Upload front
+                                        </strong>
+
+                                        <span>
+                                            JPG, PNG or WEBP
+                                        </span>
+
+                                    </div>
+
+
+                                    <img id="aadhaarFrontPreview"
+                                         class="box-document-preview hidden"
+                                         alt="Aadhaar front preview">
+
+
+                                    <span id="aadhaarFrontName"
+                                          class="file-name">
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+
+
+                            <!-- BACK -->
+
+                            <div class="upload-column">
+
+                                <div class="upload-label-row">
+
+                                    <span>
+                                        <b>02</b>
+                                        Back side
+                                    </span>
+
+                                    <span class="required-tag">
+                                        Required
+                                    </span>
+
+                                </div>
+
+
+                                <label id="aadhaarBackBox"
+                                       class="document-upload-box"
+                                       for="aadhaarBack">
+
+                                    <input type="file"
+                                           id="aadhaarBack"
+                                           name="aadhaar_back"
+                                           accept="image/*"
+                                           hidden>
+
+
+                                    <div id="aadhaarBackPlaceholder"
+                                         class="upload-placeholder">
+
+                                        <div class="upload-plus">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </div>
+
+                                        <strong>
+                                            Upload back
+                                        </strong>
+
+                                        <span>
+                                            JPG, PNG or WEBP
+                                        </span>
+
+                                    </div>
+
+
+                                    <img id="aadhaarBackPreview"
+                                         class="box-document-preview hidden"
+                                         alt="Aadhaar back preview">
+
+
+                                    <span id="aadhaarBackName"
+                                          class="file-name">
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- AADHAAR ACTION -->
+
+                        <div class="document-action-row">
+
+                            <div class="action-info">
+
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                <span>
+                                    AI will scan both sides automatically
+                                </span>
+
+                            </div>
+
+
+                            <button id="processAadhaarBtn"
+                                    type="button"
+                                    class="primary-action">
+
+                                <span>
+                                    Verify Aadhaar
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AADHAAR PROCESSING -->
+
+                    <div id="aadhaarProcessing"
+                         class="processing-state hidden">
+
+                        <div class="processing-loader"></div>
+
+                        <div>
+
+                            <strong>
+                                Processing Aadhaar
+                            </strong>
+
+                            <span>
+                                Reading and validating document...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AADHAAR FALLBACK -->
+
+                    <div id="aadhaarFallback"
+                         class="fallback-panel hidden">
+
+                        <div class="fallback-icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Additional verification required
+                            </strong>
+
+                            <span>
+                                Please complete the available verification step.
+                            </span>
+
+                        </div>
+
+
+                        <div class="manual-fields">
+
+                            <input id="manualAadhaar"
+                                   type="text"
+                                   maxlength="12"
+                                   placeholder="Enter Aadhaar number">
+
+                            <button id="saveManualAadhaarBtn"
+                                    type="button">
+                                Continue
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AADHAAR OTP -->
+
+                    <div id="aadhaarOtpSection"
+                         class="otp-panel hidden">
+
+                        <div class="otp-icon">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+
+                        <div class="otp-content">
+
+                            <strong>
+                                Aadhaar OTP verification
+                            </strong>
+
+                            <span>
+                                Enter the 6-digit OTP sent to the registered mobile number.
+                            </span>
+
+                        </div>
+
+
+                        <div class="otp-action">
+
+                            <input id="aadhaarOtp"
+                                   type="text"
+                                   maxlength="6"
+                                   inputmode="numeric"
+                                   placeholder="••••••">
+
+                            <button id="verifyAadhaarOtpBtn"
+                                    type="button">
+                                Verify OTP
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AADHAAR SUCCESS -->
+
+                    <div id="aadhaarSuccess"
+                         class="success-state hidden">
+
+                        <div class="success-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Aadhaar verified
+                            </strong>
+
+                            <span>
+                                Document verification completed successfully.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     PAN CARD
+                ============================================== -->
+
+                <section id="panCard"
+                         class="document-card pan-card">
+
+
+                    <div class="document-card-header">
+
+                        <div class="document-title-area">
+
+                            <div class="document-icon pan-icon">
+                                <i class="fa-solid fa-address-card"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    PAN Card
+                                </h3>
+
+                                <span>
+                                    Identity document
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <span id="panStatus"
+                              class="status-badge pending">
+                            Pending
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- PAN UPLOAD -->
+
+                    <div id="panUploadSection"
+                         class="document-upload-section pan-upload-section">
+
+
+                        <div class="upload-label-row">
+
+                            <span>
+                                <b>01</b>
+                                PAN card image
+                            </span>
+
+                            <span class="required-tag">
+                                Required
+                            </span>
+
+                        </div>
+
+
+                        <label class="pan-upload-box"
+                               for="panCardInput">
+
+                            <input type="file"
+                                   id="panCardInput"
+                                   name="pan_card"
+                                   accept="image/*"
+                                   hidden>
+
+
+                            <div id="panPlaceholder"
+                                 class="upload-placeholder">
+
+                                <div class="upload-plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+
+                                <strong>
+                                    Upload PAN card
+                                </strong>
+
+                                <span>
+                                    JPG, PNG or WEBP
+                                </span>
+
+                            </div>
+
+
+                            <img id="panPreview"
+                                 class="box-document-preview hidden"
+                                 alt="PAN preview">
+
+
+                            <span id="panFileName"
+                                  class="file-name">
+                            </span>
+
+                        </label>
+
+
+
+                        <div class="pan-action-row">
+
+                            <button id="processPanBtn"
+                                    type="button"
+                                    class="primary-action full-action">
+
+                                <span>
+                                    Verify PAN
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PAN PROCESSING -->
+
+                    <div id="panProcessing"
+                         class="processing-state hidden">
+
+                        <div class="processing-loader"></div>
+
+                        <div>
+
+                            <strong>
+                                Processing PAN
+                            </strong>
+
+                            <span>
+                                Validating PAN document...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PAN FALLBACK -->
+
+                    <div id="panFallback"
+                         class="fallback-panel pan-fallback hidden">
+
+                        <div class="fallback-icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Manual verification
+                            </strong>
+
+                            <span>
+                                Enter the details below to continue.
+                            </span>
+
+                        </div>
+
+
+                        <input id="manualPan"
+                               type="text"
+                               maxlength="10"
+                               placeholder="PAN number">
+
+                        <input id="manualPanName"
+                               type="text"
+                               placeholder="Applicant name">
+
+                        <button id="verifyManualPanBtn"
+                                type="button">
+                            Verify manually
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- PAN SUCCESS -->
+
+                    <div id="panSuccess"
+                         class="success-state hidden">
+
+                        <div class="success-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                PAN verified
+                            </strong>
+
+                            <span>
+                                PAN verification completed successfully.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LIVE SELFIE
+        ================================================== -->
+
+        <section id="selfieCard"
+                 class="selfie-workspace">
+
+
+            <div class="workspace-header selfie-header">
+
+                <div>
+
+                    <div class="section-kicker">
+                        STEP 03
+                    </div>
+
+                    <h2>
+                        Live selfie verification
+                    </h2>
+
+                    <p>
+                        Take a live selfie to confirm that you are the person
+                        shown in your verified documents.
+                    </p>
+
+                </div>
+
+
+                <span id="selfieStatus"
+                      class="status-badge pending">
+                    Pending
+                </span>
+
+            </div>
+
+
+
+            <div class="selfie-layout">
+
+
+                <!-- CAMERA -->
+
+                <div id="selfieCameraSection"
+                     class="selfie-camera-section">
+
+
+                    <div id="selfieCameraBox"
+                         class="camera-box">
+
+
+                        <video id="selfieVideo"
+                               autoplay
+                               playsinline
+                               muted>
+                        </video>
+
+
+                        <canvas id="selfieCanvas"
+                                hidden>
+                        </canvas>
+
+
+                        <div class="camera-overlay">
+
+                            <div class="face-frame">
+
+                                <span class="frame-corner top-left"></span>
+                                <span class="frame-corner top-right"></span>
+                                <span class="frame-corner bottom-left"></span>
+                                <span class="frame-corner bottom-right"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="selfieCameraMessage"
+                             class="camera-message">
+
+                            Camera is not started
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CAMERA BUTTONS -->
+
+                    <div class="selfie-controls">
+
+                        <button id="startCameraBtn"
+                                type="button"
+                                class="secondary-action">
+
+                            <i class="fa-solid fa-camera"></i>
+
+                            Start camera
+
+                        </button>
+
+
+                        <button id="captureSelfieBtn"
+                                type="button"
+                                class="secondary-action">
+
+                            <i class="fa-solid fa-circle-dot"></i>
+
+                            Capture
+
+                        </button>
+
+
+                        <button id="retakeSelfieBtn"
+                                type="button"
+                                class="secondary-action">
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            Retake
+
+                        </button>
+
+
+                        <button id="verifySelfieBtn"
+                                type="button"
+                                class="primary-action">
+
+                            Verify selfie
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SELFIE PREVIEW -->
+
+                <div id="selfiePreviewWrapper"
+                     class="selfie-preview-wrapper hidden">
+
+                    <div class="preview-label">
+                        CAPTURED SELFIE
+                    </div>
+
+                    <div class="selfie-preview-box">
+
+                        <img id="selfiePreview"
+                             src=""
+                             alt="Captured selfie">
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SELFIE PROCESSING -->
+
+                <div id="selfieProcessing"
+                     class="selfie-state processing-state hidden">
+
+                    <div class="processing-loader"></div>
+
+                    <div>
+
+                        <strong>
+                            AI face verification
+                        </strong>
+
+                        <span>
+                            Comparing live selfie with profile image...
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SELFIE SUCCESS -->
+
+                <div id="selfieSuccess"
+                     class="selfie-state success-state hidden">
+
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Face verified
+                        </strong>
+
+                        <span>
+                            Live selfie successfully matched with profile.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SELFIE RESULT -->
+
+                <div id="selfieResult"
+                     class="selfie-state result-state hidden">
+
+                    <div class="result-warning-icon">
+                        <i class="fa-solid fa-exclamation"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Verification requires attention
+                        </strong>
+
+                        <span id="selfieResultMessage">
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINAL RESULT
+        ================================================== -->
+
+        <section id="finalResult"
+                 class="final-verification-card">
+
+
+            <div class="final-left">
+
+                <div id="finalIcon"
+                     class="final-icon">
+
+                    ✓
+
+                </div>
+
+
+                <div class="final-copy">
+
+                    <span class="section-kicker">
+                        FINAL VERIFICATION
+                    </span>
+
+                    <h2>
+                        Identity verification status
+                    </h2>
+
+                    <p id="finalMessage">
+                        Complete Aadhaar, PAN and Live Selfie verification
+                        to finish identity verification.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="score-area">
+
+                <span>
+                    VERIFICATION SCORE
+                </span>
+
+                <strong id="verificationScore">
+                    0.00%
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER NOTE
+        ================================================== -->
+
+        <div class="verification-footer">
+
+            <div>
+
+                <i class="fa-solid fa-lock"></i>
+
+                Your verification data is protected using secure
+                processing protocols.
+
+            </div>
+
+
+            <span>
+                VeriTrust AI • Identity Security
+            </span>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div id="toast"
+     class="toast">
+</div>
+
+
+
+<!-- =========================================================
+     DJANGO URLS
+========================================================= -->
+
+<script>
+
+window.identityUrls = {
+
+    processAadhaar:
+        "{% url 'process_aadhaar_document' %}",
+
+    generateAadhaarOtp:
+        "{% url 'generate_aadhaar_otp' %}",
+
+    verifyAadhaarOtp:
+        "{% url 'verify_aadhaar_otp' %}",
+
+    processPan:
+        "{% url 'process_pan_document' %}",
+
+    saveManualAadhaar:
+        "{% url 'save_manual_aadhaar_number' %}",
+
+    verifyManualPan:
+        "{% url 'verify_manual_pan' %}",
+
+    processLiveSelfie:
+        "{% url 'process_live_selfie' %}",
+
+    verificationStatus:
+        "{% url 'identity_verification_status' %}"
+
+};
+
+</script>
+
+
+
+<script src="{% static 'js/identity_verification.js' %}"></script>
+
+</body>
+
+</html>

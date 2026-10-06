@@ -1,0 +1,595 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify OTP | VeriTrust AI</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/verify_reset_otp.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- BACKGROUND -->
+
+    <div class="background-grid"></div>
+
+    <div class="glow glow-one"></div>
+
+    <div class="glow glow-two"></div>
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+            <span>VeriTrust AI</span>
+
+        </div>
+
+
+        <div class="nav-security">
+
+            <i class="fa-solid fa-lock"></i>
+
+            Secure Account Recovery
+
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main-container">
+
+        <section class="verification-card">
+
+
+            <!-- LEFT SECTION -->
+
+            <div class="info-section">
+
+                <div class="security-icon">
+
+                    <i class="fa-solid fa-key"></i>
+
+                </div>
+
+
+                <span class="eyebrow">
+                    ACCOUNT RECOVERY
+                </span>
+
+
+                <h1>
+
+                    Verify your
+
+                    <span>identity.</span>
+
+                </h1>
+
+
+                <p>
+
+                    Enter the verification code we sent to your
+                    registered contact to securely recover your
+                    VeriTrust AI account.
+
+                </p>
+
+
+
+                <div class="security-list">
+
+
+                    <div class="security-item">
+
+                        <div class="item-icon">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Secure Verification
+                            </strong>
+
+                            <small>
+                                Your identity is verified before
+                                password recovery.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="security-item">
+
+                        <div class="item-icon">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                One-Time Code
+                            </strong>
+
+                            <small>
+                                This verification code can only
+                                be used once.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="security-item">
+
+                        <div class="item-icon">
+
+                            <i class="fa-solid fa-user-shield"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Protected Account
+                            </strong>
+
+                            <small>
+                                Your account remains protected
+                                throughout recovery.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT SECTION -->
+
+            <div class="otp-section">
+
+
+                <!-- STEP INDICATOR -->
+
+                <div class="step-indicator">
+
+
+                    <div class="step completed">
+
+                        <span>
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </span>
+
+                        <div>
+
+                            <strong>Recovery</strong>
+
+                            <small>Method</small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="step-line active"></div>
+
+
+
+                    <div class="step current">
+
+                        <span>2</span>
+
+                        <div>
+
+                            <strong>Verify</strong>
+
+                            <small>OTP</small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="step-line"></div>
+
+
+
+                    <div class="step">
+
+                        <span>3</span>
+
+                        <div>
+
+                            <strong>Reset</strong>
+
+                            <small>Password</small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- OTP HEADER -->
+
+                <div class="otp-header">
+
+
+                    <div class="otp-icon">
+
+                        {% if method == "mobile" %}
+
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        {% else %}
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <span class="eyebrow">
+                        VERIFICATION REQUIRED
+                    </span>
+
+
+                    <h2>
+                        Enter verification code
+                    </h2>
+
+
+                    <p>
+
+                        We've sent a 6-digit verification code
+                        to your registered
+
+                        {% if method == "mobile" %}
+
+                            mobile number.
+
+                        {% else %}
+
+                            email address.
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- CONTACT DISPLAY -->
+
+                <div class="contact-display">
+
+
+                    <div class="contact-icon">
+
+                        {% if method == "mobile" %}
+
+                            <i class="fa-solid fa-phone"></i>
+
+                        {% else %}
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="contact-info">
+
+                        <span>
+                            Verification sent to
+                        </span>
+
+
+                        <strong>
+
+                            {% if method == "mobile" %}
+
+                                {{ mobile|default:"your registered mobile number" }}
+
+                            {% else %}
+
+                                {{ email|default:"your registered email address" }}
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MESSAGES -->
+
+                {% if messages %}
+
+                    <div class="messages">
+
+                        {% for message in messages %}
+
+                            <div class="message {{ message.tags }}">
+
+                                <i class="fa-solid fa-circle-info"></i>
+
+                                <span>
+                                    {{ message }}
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- OTP FORM -->
+
+                <form method="POST"
+                      id="otpForm">
+
+                    {% csrf_token %}
+
+
+                    <!-- Combined OTP sent to Django -->
+
+                    <input
+                        type="hidden"
+                        name="otp"
+                        id="otpValue"
+                    >
+
+
+
+                    <label>
+                        Enter 6-digit verification code
+                    </label>
+
+
+
+                    <!-- OTP BOXES -->
+
+                    <div class="otp-inputs">
+
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            class="otp-input"
+                            autocomplete="one-time-code"
+                            autofocus
+                        >
+
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            class="otp-input"
+                        >
+
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            class="otp-input"
+                        >
+
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            class="otp-input"
+                        >
+
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            class="otp-input"
+                        >
+
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            inputmode="numeric"
+                            class="otp-input"
+                        >
+
+
+                    </div>
+
+
+
+                    <!-- RESEND -->
+
+                    <div class="otp-help">
+
+
+                        <span>
+                            Didn't receive the code?
+                        </span>
+
+
+                        <button
+                            type="submit"
+                            name="action"
+                            value="resend"
+                            class="resend-btn"
+                            id="resendBtn"
+                        >
+
+                            <i class="fa-solid fa-rotate-right"></i>
+
+                            Resend OTP
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- VERIFY -->
+
+                    <button
+                        type="submit"
+                        name="action"
+                        value="verify"
+                        class="verify-btn"
+                        id="verifyBtn"
+                    >
+
+                        <span>
+                            Verify & Continue
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- SECURE NOTE -->
+
+                <div class="secure-note">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <span>
+
+                        Your verification is securely processed
+                        by VeriTrust AI.
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- BACK LINK -->
+
+                <div class="back-link">
+
+                    <a href="{% url 'forgot_password' %}">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back to recovery
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <span>
+            © 2026 VeriTrust AI
+        </span>
+
+
+        <div>
+
+            Privacy Policy
+
+            <span>•</span>
+
+            Terms of Service
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+
+<script src="{% static 'js/verify_reset_otp.js' %}"></script>
+
+</body>
+
+</html>

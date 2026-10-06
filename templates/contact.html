@@ -1,0 +1,353 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(135deg,#0F172A,#1E3A8A);
+    min-height:100vh;
+    color:white;
+}
+
+.contact-section{
+    padding:100px 0;
+}
+
+.contact-title{
+    text-align:center;
+    margin-bottom:60px;
+    
+}
+
+.contact-title h1{
+    font-size:42px;
+    font-weight:700;
+    color:#ffffff;;
+}
+
+.contact-title p{
+    color:#CBD5E1;
+
+    font-size:18px;
+}
+
+.contact-info{
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 20px 40px rgba(56,189,248,.25);
+
+    border-radius:20px;
+
+    padding:35px;
+
+    height:100%;
+
+
+}
+
+.info-box{
+
+    display:flex;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.info-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:15px;
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+    margin-right:20px;
+
+}
+
+.info-box h5{
+
+    margin:0;
+
+    font-weight:700;
+
+}
+
+.info-box p{
+
+    margin:5px 0 0;
+
+    color:#c9cbd1;
+
+}
+
+.contact-form{
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    padding:35px;
+    box-shadow:0 20px 40px rgba(56,189,248,.25);
+
+   
+
+}
+
+.form-control{
+
+    border-radius:12px;
+
+    padding:14px;
+
+    margin-bottom:18px;
+
+}
+
+textarea{
+
+    resize:none;
+
+}
+
+.send-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.send-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.social-icons{
+
+    margin-top:30px;
+
+}
+
+.social-icons a{
+
+    width:45px;
+
+    height:45px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#2563eb;
+
+    color:white;
+
+    border-radius:50%;
+
+    margin-right:10px;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.social-icons a:hover{
+
+    background:#1d4ed8;
+
+    transform:scale(1.1);
+
+}
+
+</style>
+
+<section class="contact-section">
+
+<div class="container">
+
+<div class="contact-title">
+
+<h1>Contact Us</h1>
+
+<p>
+Have questions about VeriTrust AI? We'd love to hear from you.
+</p>
+
+</div>
+
+<div class="row g-5">
+
+<div class="col-lg-5">
+
+<div class="contact-info">
+
+<div class="info-box">
+
+<div class="info-icon">
+<i class="bi bi-envelope-fill"></i>
+</div>
+
+<div>
+
+<h5>Email</h5>
+
+<p>support@veritrustai.com</p>
+
+</div>
+
+</div>
+
+<div class="info-box">
+
+<div class="info-icon">
+<i class="bi bi-telephone-fill"></i>
+</div>
+
+<div>
+
+<h5>Phone</h5>
+
+<p>+91 98765 43210</p>
+
+</div>
+
+</div>
+
+<div class="info-box">
+
+<div class="info-icon">
+<i class="bi bi-geo-alt-fill"></i>
+</div>
+
+<div>
+
+<h5>Office</h5>
+
+<p>Pune, Maharashtra, India</p>
+
+</div>
+
+</div>
+
+<div class="info-box">
+
+<div class="info-icon">
+<i class="bi bi-clock-fill"></i>
+</div>
+
+<div>
+
+<h5>Working Hours</h5>
+
+<p>Monday - Friday (9:00 AM - 6:00 PM)</p>
+
+</div>
+
+</div>
+
+<div class="social-icons">
+
+<a href="#"><i class="bi bi-facebook"></i></a>
+
+<a href="#"><i class="bi bi-linkedin"></i></a>
+
+<a href="#"><i class="bi bi-twitter-x"></i></a>
+
+<a href="#"><i class="bi bi-instagram"></i></a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-7">
+
+<div class="contact-form">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<input
+type="text"
+class="form-control"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+class="form-control"
+placeholder="Email Address"
+required>
+
+<input
+type="text"
+class="form-control"
+placeholder="Subject"
+required>
+
+<textarea
+class="form-control"
+rows="6"
+placeholder="Write your message..."
+required></textarea>
+
+<button type="submit" class="send-btn">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

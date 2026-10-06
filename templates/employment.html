@@ -1,0 +1,4299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Employment History | VeriTrust AI</title>
+
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- Employment CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/employment.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     DELETE CONFIRMATION MODAL
+========================================================= -->
+
+<div id="deleteModal"
+     class="delete-modal-overlay">
+
+    <div class="delete-modal">
+
+        <div class="delete-modal-icon">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </div>
+
+
+        <h3>
+            Delete Employment?
+        </h3>
+
+
+        <p>
+
+            Are you sure you want to delete
+
+            <strong id="deleteCompanyName"></strong>
+
+            from your employment history?
+
+        </p>
+
+
+        <div class="delete-modal-actions">
+
+            <button
+                type="button"
+                class="delete-cancel-btn"
+                onclick="closeDeleteModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                class="delete-confirm-btn"
+                onclick="confirmDelete()">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Delete
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     VIEW DOCUMENTS MODAL
+========================================================= -->
+
+<div id="documentsModal"
+     class="documents-modal-overlay">
+
+    <div class="documents-modal">
+
+
+        <!-- HEADER -->
+
+        <div class="documents-modal-header">
+
+            <div class="documents-modal-title-area">
+
+                <div class="documents-modal-icon">
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Company Documents
+                    </h3>
+
+                    <p id="documentsCompanyName">
+                        Employment documents
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="documents-modal-close"
+                onclick="closeDocumentsModal()"
+                title="Close">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- DOCUMENT COUNT -->
+
+        <div class="documents-modal-summary">
+
+            <div class="documents-summary-icon">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Uploaded Documents
+                </span>
+
+                <strong id="documentsCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DOCUMENT LIST -->
+
+        <div
+            id="documentsList"
+            class="documents-list">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     EDIT DOCUMENT MODAL
+========================================================= -->
+
+<div id="editDocumentModal"
+     class="edit-document-modal-overlay">
+
+    <div class="edit-document-modal">
+
+
+        <!-- HEADER -->
+
+        <div class="edit-document-modal-header">
+
+            <div class="edit-document-title-area">
+
+                <div class="edit-document-icon">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Edit Document
+                    </h3>
+
+                    <p>
+                        Update employment document
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="edit-document-modal-close"
+                onclick="closeEditDocumentModal()"
+                title="Close">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- EDIT FORM -->
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            id="editDocumentForm">
+
+            {% csrf_token %}
+
+
+            <input
+                type="hidden"
+                name="action"
+                value="edit_document">
+
+
+            <input
+                type="hidden"
+                name="document_id"
+                id="editDocumentId">
+
+
+
+            <!-- DOCUMENT NAME -->
+
+            <div class="edit-document-form-group">
+
+                <label>
+                    Document Name
+                </label>
+
+
+                <div class="edit-document-input-wrapper">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+
+                    <input
+                        type="text"
+                        name="document_name"
+                        id="editDocumentName"
+                        placeholder="Enter document name"
+                        required>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CURRENT DOCUMENT -->
+
+            <div
+                class="current-document-box"
+                id="currentDocumentBox">
+
+                <div class="current-document-icon">
+
+                    <i class="fa-solid fa-file"></i>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Current Document
+                    </span>
+
+
+                    <strong id="currentDocumentName">
+                        Document
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- REPLACE FILE -->
+
+            <div class="edit-document-form-group">
+
+                <label>
+
+                    Replace Document
+
+                    <span class="optional-text">
+                        Optional
+                    </span>
+
+                </label>
+
+
+                <div
+                    class="edit-document-input-wrapper file-edit-wrapper">
+
+                    <i class="fa-solid fa-paperclip"></i>
+
+
+                    <input
+                        type="file"
+                        name="document_file"
+                        id="editDocumentFile">
+
+                </div>
+
+
+                <small>
+
+                    Leave empty if you only want to change
+                    the document name.
+
+                </small>
+
+            </div>
+
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="edit-document-actions">
+
+
+                <button
+                    type="button"
+                    class="edit-document-cancel-btn"
+                    onclick="closeEditDocumentModal()">
+
+                    Cancel
+
+                </button>
+
+
+
+                <button
+                    type="submit"
+                    class="edit-document-save-btn">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Changes
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MAIN PAGE
+========================================================= -->
+
+<div class="employment-page">
+
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+
+        <div class="header-left">
+
+
+            <div class="header-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+
+            <div>
+
+                <h1>
+                    Employment History
+                </h1>
+
+
+                <p>
+                    Add your current and previous employment details
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOTAL EXPERIENCE -->
+
+        <div class="experience-summary">
+
+            <div class="experience-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+
+            <div class="experience-content">
+
+                <span>
+                    Total Experience
+                </span>
+
+
+                <strong id="topTotalExperience">
+
+                    {% if employments %}
+
+                        {{ total_experience_text }}
+
+                    {% else %}
+
+                        0 Years 0 Months
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MESSAGES
+    ====================================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="success-message">
+
+
+                <div class="success-icon">
+
+                    <i class="fa-solid fa-check"></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Success
+                    </strong>
+
+
+                    <span>
+                        {{ message }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+
+    <!-- =====================================================
+         SAVED EMPLOYMENT
+    ====================================================== -->
+
+    {% if employments and not add_mode %}
+
+
+        <div class="saved-section">
+
+
+            <!-- SAVED HEADER -->
+
+            <div class="saved-header">
+
+                <div>
+
+                    <h2>
+                        Saved Employment History
+                    </h2>
+
+
+                    <p>
+                        Your employment details are saved successfully.
+                    </p>
+
+                </div>
+
+
+
+                <div class="company-count-badge">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    {{ employments|length }}
+
+                    <span>
+                        Companies
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 COMPANY CARDS
+            ================================================== -->
+
+            {% for employment in employments %}
+
+
+                <div class="employment-card saved-card">
+
+
+                    <!-- =================================================
+                         TOP COMPANY INFORMATION
+                    ================================================== -->
+
+                    <div class="employment-main-row">
+
+
+                        <!-- COMPANY -->
+
+                        <div class="saved-company">
+
+                            <div class="company-number">
+
+                                {{ forloop.counter|stringformat:"02d" }}
+
+                            </div>
+
+
+                            <div class="company-icon">
+
+                                <i class="fa-solid fa-building"></i>
+
+                            </div>
+
+
+                            <div class="company-name-area">
+
+                                <h3>
+
+                                    {{ employment.company_name }}
+
+                                </h3>
+
+
+                                <span>
+
+                                    {{ employment.designation }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- EMPLOYEE ID -->
+
+                        <div class="compact-info">
+
+                            <span>
+                                Employee ID
+                            </span>
+
+
+                            <strong>
+
+                                {% if employment.employee_code %}
+
+                                    {{ employment.employee_code }}
+
+                                {% else %}
+
+                                    —
+
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- ROLE -->
+
+                        <div class="compact-info">
+
+                            <span>
+                                Job Role
+                            </span>
+
+
+                            <strong>
+
+                                {{ employment.designation }}
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- JOINING -->
+
+                        <div class="compact-info">
+
+                            <span>
+                                Joining
+                            </span>
+
+
+                            <strong>
+
+                                {{ employment.joining_date|date:"d M Y" }}
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- LEAVING -->
+
+                        <div class="compact-info">
+
+                            <span>
+                                Leaving
+                            </span>
+
+
+                            <strong>
+
+
+                                {% if employment.employment_status == "Current" %}
+
+                                    Present
+
+                                {% elif employment.relieving_date %}
+
+                                    {{ employment.relieving_date|date:"d M Y" }}
+
+                                {% else %}
+
+                                    —
+
+                                {% endif %}
+
+
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             STATUS + DOCUMENTS + DELETE
+                        ================================================== -->
+
+                        <div class="employment-actions">
+
+
+                            <!-- STATUS -->
+
+                            <div class="saved-status">
+
+                                {% if employment.employment_status == "Current" %}
+
+                                    <span class="status-badge current">
+
+                                        <i class="fa-solid fa-circle"></i>
+
+                                        Current
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status-badge previous">
+
+                                        <i class="fa-solid fa-check"></i>
+
+                                        Previous
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <!-- VIEW DOCUMENTS -->
+
+                            <button
+                                type="button"
+                                class="view-documents-btn"
+
+                                onclick="openDocumentsModal(
+                                    '{{ employment.company_name|escapejs }}',
+                                    'documents-{{ employment.id }}'
+                                )"
+
+                                title="View company documents">
+
+
+                                <i class="fa-solid fa-folder-open"></i>
+
+
+                                <span>
+                                    Documents
+                                </span>
+
+
+                            </button>
+
+
+
+                            <!-- DELETE -->
+
+                            <form
+                                method="POST"
+                                class="delete-company-form"
+
+                                onsubmit="return confirmDeleteCompany(
+                                    this,
+                                    '{{ employment.company_name|escapejs }}'
+                                );">
+
+
+                                {% csrf_token %}
+
+
+                                <input
+                                    type="hidden"
+                                    name="action"
+                                    value="delete">
+
+
+                                <input
+                                    type="hidden"
+                                    name="employment_id"
+                                    value="{{ employment.id }}">
+
+
+                                <button
+                                    type="submit"
+                                    class="delete-company-btn"
+                                    title="Delete this company">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         HR + REFERENCES
+                    ================================================== -->
+
+                    <div class="contact-row">
+
+
+                        <!-- HR -->
+
+                        <div class="contact-card hr-card">
+
+
+                            <div class="contact-icon">
+
+                                <i class="fa-solid fa-user-shield"></i>
+
+                            </div>
+
+
+                            <div class="contact-info">
+
+                                <span>
+                                    HR Contact
+                                </span>
+
+
+                                <strong>
+
+                                    {% if employment.hr_name %}
+
+                                        {{ employment.hr_name }}
+
+                                    {% else %}
+
+                                        —
+
+                                    {% endif %}
+
+                                </strong>
+
+
+                                <small>
+
+                                    <i class="fa-solid fa-phone"></i>
+
+
+                                    {% if employment.hr_contact %}
+
+                                        {{ employment.hr_contact }}
+
+                                    {% else %}
+
+                                        —
+
+                                    {% endif %}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- REFERENCE 1 -->
+
+                        <div class="contact-card reference-card">
+
+
+                            <div class="reference-badge reference-one">
+                                01
+                            </div>
+
+
+                            <div class="contact-info">
+
+                                <span>
+                                    Reference 1
+                                </span>
+
+
+                                <strong>
+
+                                    {% if employment.reference1_name %}
+
+                                        {{ employment.reference1_name }}
+
+                                    {% else %}
+
+                                        —
+
+                                    {% endif %}
+
+                                </strong>
+
+
+                                <small>
+
+
+                                    {% if employment.reference1_position %}
+
+                                        {{ employment.reference1_position }}
+
+                                    {% else %}
+
+                                        Position —
+
+                                    {% endif %}
+
+
+
+                                    {% if employment.reference1_contact %}
+
+                                        <b>•</b>
+
+                                        <i class="fa-solid fa-phone"></i>
+
+                                        {{ employment.reference1_contact }}
+
+                                    {% endif %}
+
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- REFERENCE 2 -->
+
+                        <div class="contact-card reference-card">
+
+
+                            <div class="reference-badge reference-two">
+                                02
+                            </div>
+
+
+                            <div class="contact-info">
+
+                                <span>
+                                    Reference 2
+                                </span>
+
+
+                                <strong>
+
+                                    {% if employment.reference2_name %}
+
+                                        {{ employment.reference2_name }}
+
+                                    {% else %}
+
+                                        —
+
+                                    {% endif %}
+
+                                </strong>
+
+
+                                <small>
+
+
+                                    {% if employment.reference2_position %}
+
+                                        {{ employment.reference2_position }}
+
+                                    {% else %}
+
+                                        Position —
+
+                                    {% endif %}
+
+
+
+                                    {% if employment.reference2_contact %}
+
+                                        <b>•</b>
+
+                                        <i class="fa-solid fa-phone"></i>
+
+                                        {{ employment.reference2_contact }}
+
+                                    {% endif %}
+
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         EXPERIENCE
+                    ================================================== -->
+
+                    <div class="experience-strip">
+
+
+                        <div class="experience-strip-left">
+
+
+                            <div class="experience-mini-icon">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                            </div>
+
+
+                            <span>
+                                Employment Experience
+                            </span>
+
+                        </div>
+
+
+                        <strong>
+
+                            {{ employment.experience_text }}
+
+                        </strong>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         HIDDEN DOCUMENT DATA
+                    ================================================== -->
+
+                    <div
+                        id="documents-{{ employment.id }}"
+                        class="company-documents-data"
+                        data-company="{{ employment.company_name|escapejs }}">
+
+
+                        {% for document in employment.documents.all %}
+
+
+                            <div
+                                class="document-data-item"
+
+                                data-document-id="{{ document.id }}"
+
+                                data-document-name="{{ document.document_name|escapejs }}"
+
+                                data-document-url="{% if document.document_file %}{{ document.document_file.url }}{% endif %}">
+
+                            </div>
+
+
+                        {% empty %}
+
+
+                            <div class="no-document-data">
+
+                                No documents uploaded.
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+
+            <!-- =================================================
+                 ADD ANOTHER COMPANY
+            ================================================== -->
+
+            <div class="add-company-area">
+
+
+                <a
+                    href="{% url 'employment' %}?add=1"
+                    class="add-company-btn">
+
+
+                    <span class="plus-icon">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </span>
+
+
+                    Add Another Company
+
+
+                </a>
+
+
+                <p>
+
+                    Add another previous or current employment
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SAVED SUMMARY
+            ================================================== -->
+
+            <div class="bottom-summary">
+
+
+                <div class="summary-item">
+
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-building"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Companies
+                        </span>
+
+
+                        <strong>
+
+                            {{ employments|length }}
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="summary-divider"></div>
+
+
+
+                <div class="summary-item">
+
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Experience
+                        </span>
+
+
+                        <strong>
+
+                            {{ total_experience_text }}
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    {% endif %}
+
+
+
+    <!-- =====================================================
+         ADD / NEW EMPLOYMENT FORM
+    ====================================================== -->
+
+    {% if not employments or add_mode %}
+
+
+        <form
+            method="POST"
+            id="employmentForm"
+            enctype="multipart/form-data">
+
+
+            {% csrf_token %}
+
+
+
+            <!-- =================================================
+                 FORM HEADER
+            ================================================== -->
+
+            <div class="form-page-header">
+
+
+                <div>
+
+                    <div class="form-page-icon">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h2>
+
+                        {% if add_mode and employments %}
+
+                            Add New Employment
+
+                        {% else %}
+
+                            Employment Details
+
+                        {% endif %}
+
+                    </h2>
+
+
+                    <p>
+
+                        Enter your company, HR and professional
+                        reference information.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EMPLOYMENT CONTAINER
+            ================================================== -->
+
+            <div id="employmentContainer">
+
+
+                <!-- =================================================
+                     FIRST COMPANY FORM
+                ================================================== -->
+
+                <div
+                    class="employment-card form-card"
+                    data-index="0">
+
+
+                    <!-- FORM CARD HEADER -->
+
+                    <div class="card-header">
+
+
+                        <div class="card-title">
+
+
+                            <div class="company-number">
+                                01
+                            </div>
+
+
+                            <div>
+
+                                <h2>
+                                    Employment Details
+                                </h2>
+
+
+                                <p>
+                                    Company and employment information
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="remove-company"
+                            onclick="removeCompany(this)">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         COMPANY INFORMATION
+                    ================================================== -->
+
+                    <div class="form-section-title">
+
+
+                        <i class="fa-solid fa-building"></i>
+
+
+                        <span>
+                            Company Information
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- COMPANY -->
+
+                        <div class="form-group">
+
+
+                            <label>
+
+                                Company Name
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-building"></i>
+
+
+                                <input
+                                    type="text"
+                                    name="company_name[]"
+                                    placeholder="Enter company name"
+                                    required>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- DESIGNATION -->
+
+                        <div class="form-group">
+
+
+                            <label>
+
+                                Designation / Job Role
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-user-tie"></i>
+
+
+                                <input
+                                    type="text"
+                                    name="designation[]"
+                                    placeholder="e.g. Software Developer"
+                                    required>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- EMPLOYEE CODE -->
+
+                        <div class="form-group">
+
+
+                            <label>
+
+                                Employee ID / Code
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-id-card"></i>
+
+
+                                <input
+                                    type="text"
+                                    name="employee_code[]"
+                                    placeholder="Enter employee ID">
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- STATUS -->
+
+                        <div class="form-group">
+
+
+                            <label>
+
+                                Employment Status
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+
+                                <select
+                                    name="employment_status[]"
+                                    onchange="handleStatusChange(this)"
+                                    required>
+
+
+                                    <option value="Previous">
+
+                                        Previous Employment
+
+                                    </option>
+
+
+                                    <option value="Current">
+
+                                        Currently Working
+
+                                    </option>
+
+
+                                </select>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         HR INFORMATION
+                    ================================================== -->
+
+                    <div class="form-section-title">
+
+
+                        <i class="fa-solid fa-user-shield"></i>
+
+
+                        <span>
+                            HR Contact Information
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- HR NAME -->
+
+                        <div class="form-group">
+
+
+                            <label>
+                                HR Name
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-user"></i>
+
+
+                                <input
+                                    type="text"
+                                    name="hr_name[]"
+                                    placeholder="Enter HR name">
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- HR CONTACT -->
+
+                        <div class="form-group">
+
+
+                            <label>
+                                HR Contact Number
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-phone"></i>
+
+
+                                <input
+                                    type="tel"
+                                    name="hr_contact[]"
+                                    placeholder="Enter HR contact number"
+                                    maxlength="15">
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         REFERENCES
+                    ================================================== -->
+
+                    <div class="form-section-title">
+
+
+                        <i class="fa-solid fa-users"></i>
+
+
+                        <span>
+                            Professional References
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="reference-form-grid">
+
+
+                        <!-- REFERENCE 1 -->
+
+                        <div class="reference-form-card">
+
+
+                            <div class="reference-form-heading">
+
+
+                                <span class="reference-form-number">
+                                    01
+                                </span>
+
+
+                                <span>
+                                    Reference 1
+                                </span>
+
+
+                            </div>
+
+
+
+                            <div class="reference-input-grid">
+
+
+                                <div class="form-group">
+
+
+                                    <label>
+                                        Name
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+
+                                        <i class="fa-solid fa-user"></i>
+
+
+                                        <input
+                                            type="text"
+                                            name="reference1_name[]"
+                                            placeholder="Reference name">
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+
+                                    <label>
+                                        Position
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+
+                                        <i class="fa-solid fa-briefcase"></i>
+
+
+                                        <input
+                                            type="text"
+                                            name="reference1_position[]"
+                                            placeholder="e.g. Manager">
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+
+                                    <label>
+                                        Contact Number
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+
+                                        <i class="fa-solid fa-phone"></i>
+
+
+                                        <input
+                                            type="tel"
+                                            name="reference1_contact[]"
+                                            placeholder="Contact number"
+                                            maxlength="15">
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- REFERENCE 2 -->
+
+                        <div class="reference-form-card">
+
+
+                            <div class="reference-form-heading">
+
+
+                                <span class="reference-form-number reference-two-number">
+                                    02
+                                </span>
+
+
+                                <span>
+                                    Reference 2
+                                </span>
+
+
+                            </div>
+
+
+
+                            <div class="reference-input-grid">
+
+
+                                <div class="form-group">
+
+
+                                    <label>
+                                        Name
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+
+                                        <i class="fa-solid fa-user"></i>
+
+
+                                        <input
+                                            type="text"
+                                            name="reference2_name[]"
+                                            placeholder="Reference name">
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+
+                                    <label>
+                                        Position
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+
+                                        <i class="fa-solid fa-briefcase"></i>
+
+
+                                        <input
+                                            type="text"
+                                            name="reference2_position[]"
+                                            placeholder="e.g. Team Lead">
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <div class="form-group">
+
+
+                                    <label>
+                                        Contact Number
+                                    </label>
+
+
+                                    <div class="input-wrapper">
+
+
+                                        <i class="fa-solid fa-phone"></i>
+
+
+                                        <input
+                                            type="tel"
+                                            name="reference2_contact[]"
+                                            placeholder="Contact number"
+                                            maxlength="15">
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         COMPANY DOCUMENTS
+                    ================================================== -->
+
+                    <div class="form-section-title company-documents-section-title">
+
+
+                        <i class="fa-solid fa-file-shield"></i>
+
+
+                        <span>
+                            Company Documents
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="company-documents-upload-section">
+
+
+                        <div class="documents-info-box">
+
+
+                            <div class="documents-info-icon">
+
+
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+
+                            </div>
+
+
+                            <div>
+
+
+                                <strong>
+                                    Upload Employment Documents
+                                </strong>
+
+
+                                <p>
+
+                                    Add any company-related documents
+                                    such as appointment letter,
+                                    offer letter, salary slip,
+                                    increment letter, promotion letter,
+                                    relieving letter, experience letter,
+                                    ID card, agreement or other documents.
+
+                                </p>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- DOCUMENT ROWS -->
+
+                        <div
+                            class="document-upload-list"
+                            data-document-list>
+
+
+                            <!-- FIRST DOCUMENT -->
+
+                            <div class="document-upload-row">
+
+
+                                <div class="document-row-number">
+                                    01
+                                </div>
+
+
+
+                                <div class="document-upload-fields">
+
+
+                                    <!-- DOCUMENT NAME -->
+
+                                    <div class="form-group">
+
+
+                                        <label>
+                                            Document Name
+                                        </label>
+
+
+                                        <div class="input-wrapper">
+
+
+                                            <i class="fa-solid fa-file-lines"></i>
+
+
+                                            <input
+                                                type="text"
+                                                name="document_name[]"
+                                                placeholder="e.g. Appointment Letter">
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <!-- FILE -->
+
+                                    <div class="form-group">
+
+
+                                        <label>
+                                            Select Document
+                                        </label>
+
+
+                                        <div class="input-wrapper file-input-wrapper">
+
+
+                                            <i class="fa-solid fa-paperclip"></i>
+
+
+                                            <input
+                                                type="file"
+                                                name="document_file[]"
+                                                class="document-file-input">
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <!-- REMOVE DOCUMENT -->
+
+                                <button
+                                    type="button"
+                                    class="remove-document-btn"
+                                    onclick="removeDocument(this)"
+                                    title="Remove document">
+
+
+                                    <i class="fa-solid fa-trash"></i>
+
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ADD DOCUMENT -->
+
+                        <div class="add-document-area">
+
+
+                            <button
+                                type="button"
+                                class="add-document-btn"
+                                onclick="addDocument(this)">
+
+
+                                <span class="document-plus-icon">
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                </span>
+
+
+                                Add Another Document
+
+
+                            </button>
+
+
+                            <span class="document-limit-text">
+
+                                Add as many documents as required.
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         EMPLOYMENT DURATION
+                    ================================================== -->
+
+                    <div class="form-section-title">
+
+
+                        <i class="fa-solid fa-calendar-days"></i>
+
+
+                        <span>
+                            Employment Duration
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- JOINING DATE -->
+
+                        <div class="form-group">
+
+
+                            <label>
+
+                                Joining Date
+
+                                <span>*</span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-calendar-plus"></i>
+
+
+                                <input
+                                    type="date"
+                                    name="joining_date[]"
+                                    class="joining-date"
+                                    onchange="calculateCardExperience(this)"
+                                    required>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- LEAVING DATE -->
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Leaving Date
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+
+                                <i class="fa-solid fa-calendar-minus"></i>
+
+
+                                <input
+                                    type="date"
+                                    name="relieving_date[]"
+                                    class="leaving-date"
+                                    onchange="calculateCardExperience(this)">
+
+
+                            </div>
+
+
+                            <small class="present-text">
+
+                                Enter your relieving / leaving date.
+
+                            </small>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- EXPERIENCE -->
+
+                    <div class="card-experience">
+
+
+                        <div class="experience-left">
+
+
+                            <div class="small-experience-icon">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Employment Experience
+                                </span>
+
+
+                                <strong class="companyExperience">
+
+                                    0 Years 0 Months
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ADD COMPANY
+            ================================================== -->
+
+            <div class="add-company-area">
+
+
+                <button
+                    type="button"
+                    class="add-company-btn"
+                    onclick="addCompany()">
+
+
+                    <span class="plus-icon">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </span>
+
+
+                    Add Another Company
+
+
+                </button>
+
+
+                <p>
+
+                    You can add as many companies as required.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORM SUMMARY
+            ================================================== -->
+
+            <div class="bottom-summary">
+
+
+                <div class="summary-item">
+
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-building"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Companies
+                        </span>
+
+
+                        <strong id="companyCount">
+                            1
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="summary-divider"></div>
+
+
+
+                <div class="summary-item">
+
+
+                    <div class="summary-icon">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Form Experience
+                        </span>
+
+
+                        <strong id="bottomTotalExperience">
+
+                            0 Years 0 Months
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SAVE
+            ================================================== -->
+
+            <div class="save-area">
+
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+
+                    Save Employment Details
+
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    {% endif %}
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   COMPANY INDEX
+========================================================= */
+
+let companyIndex =
+    document.querySelectorAll(".form-card").length;
+
+
+
+/* =========================================================
+   ADD COMPANY
+========================================================= */
+
+function addCompany() {
+
+    const container =
+        document.getElementById(
+            "employmentContainer"
+        );
+
+
+    const firstCard =
+        document.querySelector(
+            ".form-card"
+        );
+
+
+    if (!container || !firstCard) {
+        return;
+    }
+
+
+    const newCard =
+        firstCard.cloneNode(true);
+
+
+
+    /* CLEAR NORMAL INPUTS */
+
+    newCard
+        .querySelectorAll(
+            "input:not([type='file'])"
+        )
+        .forEach(input => {
+
+            input.value = "";
+
+            input.disabled = false;
+
+        });
+
+
+
+    /* CLEAR FILE INPUTS */
+
+    newCard
+        .querySelectorAll(
+            "input[type='file']"
+        )
+        .forEach(input => {
+
+            input.value = "";
+
+            input.disabled = false;
+
+        });
+
+
+
+    /* RESET SELECT */
+
+    const select =
+        newCard.querySelector(
+            "select"
+        );
+
+
+    if (select) {
+
+        select.value =
+            "Previous";
+
+    }
+
+
+
+    /* RESET EXPERIENCE */
+
+    const experience =
+        newCard.querySelector(
+            ".companyExperience"
+        );
+
+
+    if (experience) {
+
+        experience.textContent =
+            "0 Years 0 Months";
+
+    }
+
+
+
+    /* RESET PRESENT TEXT */
+
+    const presentText =
+        newCard.querySelector(
+            ".present-text"
+        );
+
+
+    if (presentText) {
+
+        presentText.textContent =
+            "Enter your relieving / leaving date.";
+
+    }
+
+
+
+    /* SHOW LEAVING DATE */
+
+    const leavingDate =
+        newCard.querySelector(
+            ".leaving-date"
+        );
+
+
+    if (leavingDate) {
+
+        leavingDate.disabled =
+            false;
+
+    }
+
+
+
+    /* RESET DOCUMENT ROWS */
+
+    const documentList =
+        newCard.querySelector(
+            "[data-document-list]"
+        );
+
+
+    if (documentList) {
+
+        const rows =
+            documentList.querySelectorAll(
+                ".document-upload-row"
+            );
+
+
+        rows.forEach(
+            (row, index) => {
+
+                if (index > 0) {
+
+                    row.remove();
+
+                }
+
+            }
+        );
+
+
+        const firstDocumentRow =
+            documentList.querySelector(
+                ".document-upload-row"
+            );
+
+
+        if (firstDocumentRow) {
+
+            firstDocumentRow
+                .querySelectorAll(
+                    "input"
+                )
+                .forEach(input => {
+
+                    input.value = "";
+
+                });
+
+        }
+
+    }
+
+
+
+    /* COMPANY NUMBER */
+
+    const number =
+        String(
+            companyIndex + 1
+        ).padStart(2, "0");
+
+
+    const numberElement =
+        newCard.querySelector(
+            ".company-number"
+        );
+
+
+    if (numberElement) {
+
+        numberElement.textContent =
+            number;
+
+    }
+
+
+
+    /* APPEND */
+
+    container.appendChild(
+        newCard
+    );
+
+
+    companyIndex++;
+
+
+    updateCompanyCount();
+
+    updateRemoveButtons();
+
+    updateDocumentNumbers(
+        newCard
+    );
+
+    calculateFormTotalExperience();
+
+}
+
+
+
+/* =========================================================
+   REMOVE FORM COMPANY
+========================================================= */
+
+function removeCompany(button) {
+
+    const cards =
+        document.querySelectorAll(
+            ".form-card"
+        );
+
+
+    if (cards.length === 1) {
+        return;
+    }
+
+
+    const card =
+        button.closest(
+            ".form-card"
+        );
+
+
+    if (card) {
+
+        card.remove();
+
+    }
+
+
+    renumberCompanies();
+
+    updateCompanyCount();
+
+    updateRemoveButtons();
+
+    calculateFormTotalExperience();
+
+}
+
+
+
+/* =========================================================
+   RENUMBER COMPANIES
+========================================================= */
+
+function renumberCompanies() {
+
+    const cards =
+        document.querySelectorAll(
+            ".form-card"
+        );
+
+
+    cards.forEach(
+        (card, index) => {
+
+            const number =
+                String(
+                    index + 1
+                ).padStart(2, "0");
+
+
+            const numberElement =
+                card.querySelector(
+                    ".company-number"
+                );
+
+
+            if (numberElement) {
+
+                numberElement.textContent =
+                    number;
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   REMOVE BUTTON
+========================================================= */
+
+function updateRemoveButtons() {
+
+    const cards =
+        document.querySelectorAll(
+            ".form-card"
+        );
+
+
+    cards.forEach(card => {
+
+        const button =
+            card.querySelector(
+                ".remove-company"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        if (cards.length === 1) {
+
+            button.style.display =
+                "none";
+
+        }
+
+        else {
+
+            button.style.display =
+                "flex";
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================================
+   COMPANY COUNT
+========================================================= */
+
+function updateCompanyCount() {
+
+    const count =
+        document.querySelectorAll(
+            ".form-card"
+        ).length;
+
+
+    const companyCount =
+        document.getElementById(
+            "companyCount"
+        );
+
+
+    if (companyCount) {
+
+        companyCount.textContent =
+            count;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   STATUS CHANGE
+========================================================= */
+
+function handleStatusChange(select) {
+
+    const card =
+        select.closest(
+            ".form-card"
+        );
+
+
+    if (!card) {
+        return;
+    }
+
+
+    const leavingDate =
+        card.querySelector(
+            ".leaving-date"
+        );
+
+
+    const presentText =
+        card.querySelector(
+            ".present-text"
+        );
+
+
+    if (select.value === "Current") {
+
+        leavingDate.value =
+            "";
+
+        leavingDate.disabled =
+            true;
+
+
+        presentText.textContent =
+            "Currently working — experience is calculated up to today.";
+
+    }
+
+    else {
+
+        leavingDate.disabled =
+            false;
+
+
+        presentText.textContent =
+            "Enter your relieving / leaving date.";
+
+    }
+
+
+    calculateCardExperience(
+        card.querySelector(
+            ".joining-date"
+        )
+    );
+
+}
+
+
+
+/* =========================================================
+   DATE PARSER
+========================================================= */
+
+function parseLocalDate(value) {
+
+    if (!value) {
+        return null;
+    }
+
+
+    const parts =
+        value.split("-");
+
+
+    if (parts.length !== 3) {
+        return null;
+    }
+
+
+    return new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+
+}
+
+
+
+/* =========================================================
+   CARD EXPERIENCE
+========================================================= */
+
+function calculateCardExperience(input) {
+
+    if (!input) {
+        return;
+    }
+
+
+    const card =
+        input.closest(
+            ".form-card"
+        );
+
+
+    if (!card) {
+        return;
+    }
+
+
+    const joiningInput =
+        card.querySelector(
+            ".joining-date"
+        );
+
+
+    const leavingInput =
+        card.querySelector(
+            ".leaving-date"
+        );
+
+
+    const select =
+        card.querySelector(
+            "select"
+        );
+
+
+    if (!select) {
+        return;
+    }
+
+
+    const status =
+        select.value;
+
+
+    const experience =
+        card.querySelector(
+            ".companyExperience"
+        );
+
+
+    const joining =
+        joiningInput.value;
+
+
+    if (!joining) {
+
+        experience.textContent =
+            "0 Years 0 Months";
+
+
+        calculateFormTotalExperience();
+
+        return;
+
+    }
+
+
+    const start =
+        parseLocalDate(
+            joining
+        );
+
+
+    let end;
+
+
+    if (status === "Current") {
+
+        const today =
+            new Date();
+
+
+        end =
+            new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate()
+            );
+
+    }
+
+    else {
+
+        if (!leavingInput.value) {
+
+            experience.textContent =
+                "0 Years 0 Months";
+
+
+            calculateFormTotalExperience();
+
+            return;
+
+        }
+
+
+        end =
+            parseLocalDate(
+                leavingInput.value
+            );
+
+    }
+
+
+    if (!start || !end) {
+
+        experience.textContent =
+            "0 Years 0 Months";
+
+
+        calculateFormTotalExperience();
+
+        return;
+
+    }
+
+
+    if (end < start) {
+
+        experience.textContent =
+            "Invalid dates";
+
+
+        calculateFormTotalExperience();
+
+        return;
+
+    }
+
+
+    let years =
+        end.getFullYear() -
+        start.getFullYear();
+
+
+    let months =
+        end.getMonth() -
+        start.getMonth();
+
+
+    if (
+        end.getDate() <
+        start.getDate()
+    ) {
+
+        months--;
+
+    }
+
+
+    if (months < 0) {
+
+        years--;
+
+        months += 12;
+
+    }
+
+
+    experience.textContent =
+        years +
+        " Years " +
+        months +
+        " Months";
+
+
+    calculateFormTotalExperience();
+
+}
+
+
+
+/* =========================================================
+   FORM TOTAL EXPERIENCE
+========================================================= */
+
+function calculateFormTotalExperience() {
+
+    const cards =
+        document.querySelectorAll(
+            ".form-card"
+        );
+
+
+    if (!cards.length) {
+        return;
+    }
+
+
+    let totalMonths = 0;
+
+
+    cards.forEach(card => {
+
+
+        const joiningInput =
+            card.querySelector(
+                ".joining-date"
+            );
+
+
+        if (
+            !joiningInput ||
+            !joiningInput.value
+        ) {
+
+            return;
+
+        }
+
+
+        const leavingInput =
+            card.querySelector(
+                ".leaving-date"
+            );
+
+
+        const select =
+            card.querySelector(
+                "select"
+            );
+
+
+        if (!select) {
+            return;
+        }
+
+
+        const status =
+            select.value;
+
+
+        const start =
+            parseLocalDate(
+                joiningInput.value
+            );
+
+
+        if (!start) {
+            return;
+        }
+
+
+        let end;
+
+
+        if (status === "Current") {
+
+            const today =
+                new Date();
+
+
+            end =
+                new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate()
+                );
+
+        }
+
+        else {
+
+            if (
+                !leavingInput ||
+                !leavingInput.value
+            ) {
+
+                return;
+
+            }
+
+
+            end =
+                parseLocalDate(
+                    leavingInput.value
+                );
+
+        }
+
+
+        if (
+            !end ||
+            end < start
+        ) {
+
+            return;
+
+        }
+
+
+        let months =
+            (
+                end.getFullYear() -
+                start.getFullYear()
+            ) * 12;
+
+
+        months +=
+            end.getMonth() -
+            start.getMonth();
+
+
+        if (
+            end.getDate() <
+            start.getDate()
+        ) {
+
+            months--;
+
+        }
+
+
+        if (months < 0) {
+
+            months = 0;
+
+        }
+
+
+        totalMonths +=
+            months;
+
+    });
+
+
+
+    const years =
+        Math.floor(
+            totalMonths / 12
+        );
+
+
+    const months =
+        totalMonths % 12;
+
+
+    const result =
+        years +
+        " Years " +
+        months +
+        " Months";
+
+
+
+    const bottomExperience =
+        document.getElementById(
+            "bottomTotalExperience"
+        );
+
+
+    if (bottomExperience) {
+
+        bottomExperience.textContent =
+            result;
+
+    }
+
+
+
+    const topExperience =
+        document.getElementById(
+            "topTotalExperience"
+        );
+
+
+    if (topExperience) {
+
+        topExperience.textContent =
+            result;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   ADD DOCUMENT
+========================================================= */
+
+function addDocument(button) {
+
+    const formCard =
+        button.closest(
+            ".form-card"
+        );
+
+
+    if (!formCard) {
+        return;
+    }
+
+
+    const documentList =
+        formCard.querySelector(
+            "[data-document-list]"
+        );
+
+
+    if (!documentList) {
+        return;
+    }
+
+
+    const firstRow =
+        documentList.querySelector(
+            ".document-upload-row"
+        );
+
+
+    if (!firstRow) {
+        return;
+    }
+
+
+    const newRow =
+        firstRow.cloneNode(true);
+
+
+    /* CLEAR INPUTS */
+
+    newRow
+        .querySelectorAll("input")
+        .forEach(input => {
+
+            input.value = "";
+
+        });
+
+
+    documentList.appendChild(
+        newRow
+    );
+
+
+    updateDocumentNumbers(
+        formCard
+    );
+
+
+    updateDocumentRemoveButtons(
+        formCard
+    );
+
+}
+
+
+
+/* =========================================================
+   REMOVE DOCUMENT
+========================================================= */
+
+function removeDocument(button) {
+
+    const formCard =
+        button.closest(
+            ".form-card"
+        );
+
+
+    if (!formCard) {
+        return;
+    }
+
+
+    const documentList =
+        formCard.querySelector(
+            "[data-document-list]"
+        );
+
+
+    if (!documentList) {
+        return;
+    }
+
+
+    const rows =
+        documentList.querySelectorAll(
+            ".document-upload-row"
+        );
+
+
+    if (rows.length === 1) {
+
+        const row =
+            rows[0];
+
+
+        row.querySelectorAll(
+            "input"
+        ).forEach(input => {
+
+            input.value = "";
+
+        });
+
+
+        return;
+
+    }
+
+
+    const row =
+        button.closest(
+            ".document-upload-row"
+        );
+
+
+    if (row) {
+
+        row.remove();
+
+    }
+
+
+    updateDocumentNumbers(
+        formCard
+    );
+
+
+    updateDocumentRemoveButtons(
+        formCard
+    );
+
+}
+
+
+
+/* =========================================================
+   DOCUMENT NUMBERS
+========================================================= */
+
+function updateDocumentNumbers(formCard) {
+
+    const rows =
+        formCard.querySelectorAll(
+            ".document-upload-row"
+        );
+
+
+    rows.forEach(
+        (row, index) => {
+
+
+            const number =
+                String(
+                    index + 1
+                ).padStart(2, "0");
+
+
+            const numberElement =
+                row.querySelector(
+                    ".document-row-number"
+                );
+
+
+            if (numberElement) {
+
+                numberElement.textContent =
+                    number;
+
+            }
+
+        }
+    );
+
+
+    updateDocumentRemoveButtons(
+        formCard
+    );
+
+}
+
+
+
+/* =========================================================
+   DOCUMENT REMOVE BUTTONS
+========================================================= */
+
+function updateDocumentRemoveButtons(formCard) {
+
+    const rows =
+        formCard.querySelectorAll(
+            ".document-upload-row"
+        );
+
+
+    rows.forEach(row => {
+
+
+        const button =
+            row.querySelector(
+                ".remove-document-btn"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        if (rows.length === 1) {
+
+            button.style.display =
+                "none";
+
+        }
+
+        else {
+
+            button.style.display =
+                "flex";
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================================
+   VIEW DOCUMENTS MODAL
+========================================================= */
+
+function openDocumentsModal(
+    companyName,
+    dataContainerId
+) {
+
+
+    const modal =
+        document.getElementById(
+            "documentsModal"
+        );
+
+
+    const companyNameElement =
+        document.getElementById(
+            "documentsCompanyName"
+        );
+
+
+    const documentsList =
+        document.getElementById(
+            "documentsList"
+        );
+
+
+    const documentsCount =
+        document.getElementById(
+            "documentsCount"
+        );
+
+
+    if (!modal || !documentsList) {
+        return;
+    }
+
+
+    /* COMPANY NAME */
+
+    if (companyNameElement) {
+
+        companyNameElement.textContent =
+            companyName;
+
+    }
+
+
+    documentsList.innerHTML =
+        "";
+
+
+
+    /* DATA CONTAINER */
+
+    const dataContainer =
+        document.getElementById(
+            dataContainerId
+        );
+
+
+    if (!dataContainer) {
+
+        showNoDocuments(
+            documentsList,
+            documentsCount
+        );
+
+
+        modal.classList.add(
+            "show"
+        );
+
+
+        document.body.style.overflow =
+            "hidden";
+
+
+        return;
+
+    }
+
+
+
+    /* DOCUMENT ITEMS */
+
+    const documentItems =
+        dataContainer.querySelectorAll(
+            ".document-data-item"
+        );
+
+
+
+    if (!documentItems.length) {
+
+        showNoDocuments(
+            documentsList,
+            documentsCount
+        );
+
+    }
+
+    else {
+
+
+        documentItems.forEach(
+            (item, index) => {
+
+
+                const name =
+                    item.dataset.documentName ||
+                    "Employment Document";
+
+
+                const url =
+                    item.dataset.documentUrl ||
+                    "";
+
+
+                const documentId =
+                    item.dataset.documentId ||
+                    "";
+
+
+                const number =
+                    String(
+                        index + 1
+                    ).padStart(2, "0");
+
+
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                row.className =
+                    "view-document-row";
+
+
+
+                row.innerHTML = `
+
+                    <div class="view-document-number">
+
+                        ${number}
+
+                    </div>
+
+
+                    <div class="view-document-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+
+                    <div class="view-document-info">
+
+                        <strong>
+
+                            ${escapeHtml(name)}
+
+                        </strong>
+
+
+                        <span>
+
+                            Company employment document
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="document-actions">
+
+
+                        ${
+                            url
+                            ?
+                            `
+
+                            <a
+                                href="${escapeAttribute(url)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="document-view-btn">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View
+
+                            </a>
+
+                            `
+                            :
+                            `
+
+                            <span class="document-unavailable">
+
+                                Unavailable
+
+                            </span>
+
+                            `
+                        }
+
+
+                        <button
+                            type="button"
+                            class="document-edit-btn"
+
+                            onclick="openEditDocumentModal(
+                                '${escapeAttribute(name)}',
+                                '${escapeAttribute(url)}',
+                                '${escapeAttribute(documentId)}'
+                            )">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </button>
+
+
+                    </div>
+
+                `;
+
+
+                documentsList.appendChild(
+                    row
+                );
+
+            }
+        );
+
+
+
+        if (documentsCount) {
+
+            documentsCount.textContent =
+                documentItems.length;
+
+        }
+
+    }
+
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+
+/* =========================================================
+   NO DOCUMENTS
+========================================================= */
+
+function showNoDocuments(
+    documentsList,
+    documentsCount
+) {
+
+
+    documentsList.innerHTML = `
+
+        <div class="documents-empty-state">
+
+
+            <div class="documents-empty-icon">
+
+                <i class="fa-solid fa-file-circle-xmark"></i>
+
+            </div>
+
+
+            <strong>
+
+                No documents uploaded
+
+            </strong>
+
+
+            <p>
+
+                No company documents are available
+                for this employment.
+
+            </p>
+
+
+        </div>
+
+    `;
+
+
+    if (documentsCount) {
+
+        documentsCount.textContent =
+            "0";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   CLOSE DOCUMENT MODAL
+========================================================= */
+
+function closeDocumentsModal() {
+
+    const modal =
+        document.getElementById(
+            "documentsModal"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+
+/* =========================================================
+   EDIT DOCUMENT MODAL
+========================================================= */
+
+function openEditDocumentModal(
+    documentName,
+    documentUrl,
+    documentId
+) {
+
+
+    /* CLOSE DOCUMENT LIST MODAL */
+
+    closeDocumentsModal();
+
+
+
+    const modal =
+        document.getElementById(
+            "editDocumentModal"
+        );
+
+
+    const nameInput =
+        document.getElementById(
+            "editDocumentName"
+        );
+
+
+    const idInput =
+        document.getElementById(
+            "editDocumentId"
+        );
+
+
+    const currentName =
+        document.getElementById(
+            "currentDocumentName"
+        );
+
+
+    const fileInput =
+        document.getElementById(
+            "editDocumentFile"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+
+    /* DOCUMENT ID */
+
+    if (idInput) {
+
+        idInput.value =
+            documentId || "";
+
+    }
+
+
+
+    /* DOCUMENT NAME */
+
+    if (nameInput) {
+
+        nameInput.value =
+            documentName || "";
+
+    }
+
+
+
+    /* CURRENT DOCUMENT */
+
+    if (currentName) {
+
+        currentName.textContent =
+            documentName ||
+            "Document";
+
+    }
+
+
+
+    /* CLEAR FILE */
+
+    if (fileInput) {
+
+        fileInput.value =
+            "";
+
+    }
+
+
+
+    /* SHOW MODAL */
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+
+/* =========================================================
+   CLOSE EDIT DOCUMENT MODAL
+========================================================= */
+
+function closeEditDocumentModal() {
+
+    const modal =
+        document.getElementById(
+            "editDocumentModal"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        );
+
+}
+
+
+
+/* =========================================================
+   DELETE CONFIRMATION
+========================================================= */
+
+let deleteFormToSubmit =
+    null;
+
+
+
+/* OPEN DELETE MODAL */
+
+function confirmDeleteCompany(
+    form,
+    companyName
+) {
+
+
+    const modal =
+        document.getElementById(
+            "deleteModal"
+        );
+
+
+    const companyNameElement =
+        document.getElementById(
+            "deleteCompanyName"
+        );
+
+
+    if (!modal) {
+
+        return true;
+
+    }
+
+
+    deleteFormToSubmit =
+        form;
+
+
+    if (companyNameElement) {
+
+        companyNameElement.textContent =
+            companyName;
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    return false;
+
+}
+
+
+
+/* CLOSE DELETE MODAL */
+
+function closeDeleteModal() {
+
+    const modal =
+        document.getElementById(
+            "deleteModal"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    deleteFormToSubmit =
+        null;
+
+}
+
+
+
+/* CONFIRM DELETE */
+
+function confirmDelete() {
+
+    if (!deleteFormToSubmit) {
+        return;
+    }
+
+
+    const form =
+        deleteFormToSubmit;
+
+
+    closeDeleteModal();
+
+
+    form.submit();
+
+}
+
+
+
+/* =========================================================
+   CLICK OUTSIDE MODALS
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const deleteModal =
+            document.getElementById(
+                "deleteModal"
+            );
+
+
+        if (
+            deleteModal &&
+            event.target === deleteModal
+        ) {
+
+            closeDeleteModal();
+
+        }
+
+
+
+        const documentsModal =
+            document.getElementById(
+                "documentsModal"
+            );
+
+
+        if (
+            documentsModal &&
+            event.target === documentsModal
+        ) {
+
+            closeDocumentsModal();
+
+        }
+
+
+
+        const editDocumentModal =
+            document.getElementById(
+                "editDocumentModal"
+            );
+
+
+        if (
+            editDocumentModal &&
+            event.target === editDocumentModal
+        ) {
+
+            closeEditDocumentModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+
+        closeDeleteModal();
+
+        closeDocumentsModal();
+
+        closeEditDocumentModal();
+
+    }
+);
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+
+        updateRemoveButtons();
+
+
+        updateCompanyCount();
+
+
+        calculateFormTotalExperience();
+
+
+
+        /* INITIALIZE DOCUMENT BUTTONS */
+
+        document
+            .querySelectorAll(
+                ".form-card"
+            )
+            .forEach(card => {
+
+                updateDocumentNumbers(
+                    card
+                );
+
+            });
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

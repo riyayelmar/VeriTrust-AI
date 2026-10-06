@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Verify Email | VeriTrust AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(59, 130, 246, 0.16),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(139, 92, 246, 0.14),
+                    transparent 35%
+                ),
+                #07111f;
+
+            color: #ffffff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 24px;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND GLOW
+        ===================================================== */
+
+        .glow {
+
+            position: fixed;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(59, 130, 246, 0.12);
+
+            filter: blur(80px);
+
+            pointer-events: none;
+        }
+
+        .glow.one {
+
+            top: -100px;
+            left: -80px;
+        }
+
+        .glow.two {
+
+            right: -100px;
+            bottom: -100px;
+
+            background:
+                rgba(139, 92, 246, 0.12);
+        }
+
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .verification-wrapper {
+
+            width: 100%;
+
+            max-width: 470px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .verification-card {
+
+            background:
+                rgba(15, 31, 50, 0.82);
+
+            border:
+                1px solid rgba(148, 163, 184, 0.15);
+
+            border-radius: 24px;
+
+            padding: 38px 34px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.38),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+
+        /* =====================================================
+           BRAND
+        ===================================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-bottom: 28px;
+        }
+
+        .brand-icon {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .brand-name {
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.4px;
+        }
+
+        .brand-name span {
+
+            color: #60a5fa;
+        }
+
+
+        /* =====================================================
+           EMAIL ICON
+        ===================================================== */
+
+        .icon-container {
+
+            width: 76px;
+            height: 76px;
+
+            margin: 0 auto 22px;
+
+            border-radius: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+
+            background:
+                rgba(59, 130, 246, 0.10);
+
+            border:
+                1px solid rgba(96, 165, 250, 0.18);
+
+            box-shadow:
+                0 15px 35px rgba(37, 99, 235, 0.12);
+        }
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        h1 {
+
+            text-align: center;
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 24px;
+        }
+
+
+        /* =====================================================
+           EMAIL DISPLAY
+        ===================================================== */
+
+        .email-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 13px 15px;
+
+            margin-bottom: 24px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(2, 6, 23, 0.42);
+
+            border:
+                1px solid rgba(148, 163, 184, 0.12);
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+        .email-icon {
+
+            font-size: 16px;
+        }
+
+        .email-text {
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
+
+        .messages {
+
+            margin-bottom: 18px;
+        }
+
+        .message {
+
+            padding: 11px 13px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+        }
+
+        .message.success {
+
+            background:
+                rgba(34, 197, 94, 0.10);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.18);
+
+            color: #86efac;
+        }
+
+        .message.error {
+
+            background:
+                rgba(239, 68, 68, 0.10);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.18);
+
+            color: #fca5a5;
+        }
+
+
+        /* =====================================================
+           OTP LABEL
+        ===================================================== */
+
+        .label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #cbd5e1;
+
+            margin-bottom: 9px;
+        }
+
+
+        /* =====================================================
+           OTP INPUT
+        ===================================================== */
+
+        .otp-input {
+
+            width: 100%;
+
+            height: 58px;
+
+            border-radius: 13px;
+
+            border:
+                1px solid rgba(148, 163, 184, 0.18);
+
+            background:
+                rgba(2, 6, 23, 0.48);
+
+            color: #ffffff;
+
+            text-align: center;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            letter-spacing: 9px;
+
+            outline: none;
+
+            transition: 0.2s ease;
+        }
+
+        .otp-input::placeholder {
+
+            color: #475569;
+
+            letter-spacing: 5px;
+        }
+
+        .otp-input:focus {
+
+            border-color:
+                rgba(96, 165, 250, 0.65);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(59, 130, 246, 0.09);
+        }
+
+
+        /* =====================================================
+           BUTTON GROUP
+        ===================================================== */
+
+        .button-group {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        /* =====================================================
+           VERIFY BUTTON
+        ===================================================== */
+
+        .verify-btn {
+
+            flex: 1;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 25px
+                rgba(37, 99, 235, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .verify-btn:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(37, 99, 235, 0.35);
+        }
+
+        .verify-btn:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           RESEND BUTTON
+        ===================================================== */
+
+        .resend-btn {
+
+            height: 52px;
+
+            padding: 0 18px;
+
+            border-radius: 13px;
+
+            border:
+                1px solid rgba(96, 165, 250, 0.25);
+
+            background:
+                rgba(59, 130, 246, 0.08);
+
+            color: #93c5fd;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+            white-space: nowrap;
+        }
+
+        .resend-btn:hover {
+
+            background:
+                rgba(59, 130, 246, 0.15);
+
+            border-color:
+                rgba(96, 165, 250, 0.45);
+
+            transform: translateY(-1px);
+        }
+
+        .resend-btn:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+        ===================================================== */
+
+        .security-note {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 19px;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #475569;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 520px) {
+
+            body {
+
+                padding: 15px;
+            }
+
+            .verification-card {
+
+                padding: 30px 22px;
+
+                border-radius: 20px;
+            }
+
+            h1 {
+
+                font-size: 24px;
+            }
+
+            .otp-input {
+
+                height: 54px;
+
+                font-size: 21px;
+            }
+
+            .button-group {
+
+                flex-direction: column;
+            }
+
+            .verify-btn,
+            .resend-btn {
+
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="glow one"></div>
+
+    <div class="glow two"></div>
+
+
+    <div class="verification-wrapper">
+
+        <div class="verification-card">
+
+
+            <!-- =================================================
+                 BRAND
+            ================================================== -->
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ✓
+                </div>
+
+                <div class="brand-name">
+
+                    VeriTrust
+                    <span>AI</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EMAIL ICON
+            ================================================== -->
+
+            <div class="icon-container">
+                ✉
+            </div>
+
+
+            <!-- =================================================
+                 TITLE
+            ================================================== -->
+
+            <h1>
+                Verify Your Email
+            </h1>
+
+            <p class="subtitle">
+
+                We've sent a 6-digit verification code
+                to your email address.
+
+            </p>
+
+
+            <!-- =================================================
+                 DJANGO MESSAGES
+            ================================================== -->
+
+            {% if messages %}
+
+                <div class="messages">
+
+                    {% for message in messages %}
+
+                        <div class="message {{ message.tags }}">
+
+                            {{ message }}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 EMAIL
+            ================================================== -->
+
+            {% if email %}
+
+                <div class="email-box">
+
+                    <span class="email-icon">
+                        ✉
+                    </span>
+
+                    <span class="email-text">
+                        {{ email }}
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 OTP FORM
+            ================================================== -->
+
+            <form
+                method="POST"
+                action=""
+                autocomplete="off"
+            >
+
+                {% csrf_token %}
+
+
+                <label
+                    for="otp"
+                    class="label"
+                >
+
+                    Enter Verification Code
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    class="otp-input"
+                    placeholder="••••••"
+                    maxlength="6"
+                    inputmode="numeric"
+                    pattern="[0-9]{6}"
+                    autocomplete="one-time-code"
+                    required
+                >
+
+
+                <!-- =================================================
+                     BUTTONS
+                ================================================== -->
+
+                <div class="button-group">
+
+
+                    <!-- VERIFY -->
+
+                    <button
+                        type="submit"
+                        name="action"
+                        value="verify"
+                        class="verify-btn"
+                    >
+
+                        Verify Email
+
+                    </button>
+
+
+                    <!-- RESEND -->
+
+                    <button
+                        type="submit"
+                        name="action"
+                        value="resend"
+                        class="resend-btn"
+                    >
+
+                        ↻ Resend OTP
+
+                    </button>
+
+
+                </div>
+
+            </form>
+
+
+            <!-- =================================================
+                 SECURITY
+            ================================================== -->
+
+            <div class="security-note">
+
+                <span>🔒</span>
+
+                <span>
+
+                    Your verification is securely processed
+                    by VeriTrust AI.
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <div class="footer">
+
+            © 2026 VeriTrust AI · Secure Identity Verification
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         OTP ONLY NUMBERS
+    ========================================================= -->
+
+    <script>
+
+        const otpInput =
+            document.getElementById("otp");
+
+
+        if (otpInput) {
+
+            otpInput.addEventListener(
+                "input",
+                function () {
+
+                    this.value =
+                        this.value
+                            .replace(/\D/g, "")
+                            .slice(0, 6);
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

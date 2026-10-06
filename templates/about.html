@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(135deg,#0F172A,#1E3A8A);
+    min-height:100vh;
+    color:white;
+}
+
+/* ===========================
+   About Section
+=========================== */
+
+.about-section{
+    padding:100px 0;
+}
+
+/* ===========================
+   Left Image Box
+=========================== */
+
+.about-image{
+
+    background:linear-gradient(135deg,#2563EB,#38BDF8);
+
+    border-radius:25px;
+
+    min-height:450px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    font-size:140px;
+
+    box-shadow:0 20px 40px rgba(56,189,248,.30);
+
+}
+
+/* ===========================
+   About Content
+=========================== */
+
+.about-content h1{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+.about-content p{
+
+    color:#CBD5E1;
+
+    line-height:1.9;
+
+    font-size:17px;
+
+}
+
+/* ===========================
+   Mission Vision Cards
+=========================== */
+
+.info-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(56,189,248,.30);
+
+}
+
+.info-card h3{
+
+    color:white;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+.info-card p{
+
+    color:#CBD5E1;
+
+    line-height:1.7;
+
+}
+
+/* ===========================
+   Statistics
+=========================== */
+
+.stats{
+
+    margin-top:80px;
+
+}
+
+.stat-box{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    transition:.3s;
+
+}
+
+.stat-box:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(56,189,248,.30);
+
+}
+
+.stat-box h2{
+
+    .stat-box h2{
+
+    color:#38BDF8;
+
+    font-size:42px;
+
+    font-weight:bold;
+
+}
+
+}
+
+.stat-box p{
+
+    color:#CBD5E1;
+
+    margin-top:10px;
+
+}
+
+</style>
+
+<section class="about-section">
+
+<div class="container">
+
+<div class="row align-items-center g-5">
+
+<div class="col-lg-6">
+
+<div class="about-image">
+
+🛡️
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="about-content">
+
+<h1>About VeriTrust AI</h1>
+
+<p>
+
+VeriTrust AI is an intelligent employee background verification platform
+designed to help organizations hire trusted and verified professionals.
+Our AI-powered system verifies identity, educational qualifications,
+employment history and important documents through a secure digital process.
+
+</p>
+
+<p>
+
+Our goal is to make hiring faster, safer and more reliable while reducing
+manual verification efforts and preventing fraudulent applications.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row mt-5 g-4">
+
+<div class="col-md-4">
+
+<div class="info-card">
+
+<h3>🎯 Our Mission</h3>
+
+<p>
+
+To build a secure and AI-powered verification platform that enables
+organizations to hire genuine and trustworthy employees.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="info-card">
+
+<h3>🚀 Our Vision</h3>
+
+<p>
+
+To become one of the most trusted digital employee verification platforms
+by combining Artificial Intelligence with secure verification technology.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="info-card">
+
+<h3>💡 Why Choose Us</h3>
+
+<p>
+
+AI-based verification, secure document validation, role-based dashboards,
+real-time reports and enterprise-level security.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>99.9%</h2>
+
+<p>Verification Accuracy</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>10K+</h2>
+
+<p>Employee Records</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>24/7</h2>
+
+<p>Platform Availability</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>100%</h2>
+
+<p>Secure Data Protection</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

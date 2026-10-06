@@ -1,0 +1,1124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Address Verification | VeriTrust AI</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/address_verification.css' %}">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="page-header">
+
+        <div>
+            <span class="eyebrow">
+                VERITRUST AI
+            </span>
+
+            <h1>Address Verification</h1>
+
+            <p>
+                Verify your residential address using
+                location, documents, photos and video evidence.
+            </p>
+        </div>
+
+        <div class="verification-badge">
+            <span class="badge-dot"></span>
+            Secure Verification
+        </div>
+
+    </header>
+
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          id="addressForm">
+
+        {% csrf_token %}
+
+
+        <!-- =================================================
+             CORRESPONDENCE ADDRESS
+        ================================================== -->
+
+        <section class="address-card">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="step-number">01</span>
+
+                    <div>
+                        <h2>Correspondence Address</h2>
+
+                        <p>
+                            Search your home or use your current
+                            GPS location.
+                        </p>
+                    </div>
+                </div>
+
+                <span class="required-label">
+                    Required
+                </span>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="location-search">
+
+                <div class="search-box">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input type="text"
+                           id="correspondence-search"
+                           placeholder="Search your home location...">
+
+                    <button type="button"
+                            class="search-btn"
+                            onclick="searchLocation('correspondence')">
+
+                        Search
+
+                    </button>
+
+                </div>
+
+                <button type="button"
+                        class="gps-btn"
+                        onclick="getCurrentLocation('correspondence')">
+
+                    📍 Use My Current Location
+
+                </button>
+
+            </div>
+
+
+            <!-- MAP -->
+
+            <div id="correspondence-map"
+                 class="location-map">
+            </div>
+
+
+            <div id="correspondence-location-message"
+                 class="location-message">
+
+                Search a location or use GPS.
+
+            </div>
+
+
+            <!-- HIDDEN GPS -->
+
+            <input type="hidden"
+                   id="correspondence-latitude"
+                   name="correspondence-latitude">
+
+            <input type="hidden"
+                   id="correspondence-longitude"
+                   name="correspondence-longitude">
+
+            <input type="hidden"
+                   id="correspondence-location_accuracy"
+                   name="correspondence-location_accuracy">
+
+
+            <!-- ADDRESS -->
+
+            <div class="address-grid">
+
+                <div class="form-group">
+
+                    <label>House / Flat No.</label>
+
+                    <input type="text"
+                           name="correspondence-house_no"
+                           id="correspondence-house_no"
+                           value="{{ correspondence.house_no }}"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Street</label>
+
+                    <input type="text"
+                           name="correspondence-street"
+                           id="correspondence-street"
+                           value="{{ correspondence.street }}"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Area</label>
+
+                    <input type="text"
+                           name="correspondence-area"
+                           id="correspondence-area"
+                           value="{{ correspondence.area }}"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>City</label>
+
+                    <input type="text"
+                           name="correspondence-city"
+                           id="correspondence-city"
+                           value="{{ correspondence.city }}"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>District</label>
+
+                    <input type="text"
+                           name="correspondence-district"
+                           id="correspondence-district"
+                           value="{{ correspondence.district }}"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>State</label>
+
+                    <input type="text"
+                           name="correspondence-state"
+                           id="correspondence-state"
+                           value="{{ correspondence.state }}"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Pincode</label>
+
+                    <input type="text"
+                           name="correspondence-pincode"
+                           id="correspondence-pincode"
+                           value="{{ correspondence.pincode }}"
+                           maxlength="10"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 ADDRESS DOCUMENTS
+            ========================================== -->
+
+            <div class="proof-section">
+
+                <div class="proof-title">
+
+                    <div>
+                        <h3>Address Documents</h3>
+
+                        <p>
+                            Upload two documents supporting this address.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="document-grid">
+
+                    <!-- DOCUMENT 1 -->
+
+                    <div class="upload-card">
+
+                        <span class="upload-number">01</span>
+
+                        <h4>Address Document</h4>
+
+                        <select name="correspondence-document_type_1">
+
+                            <option value="">
+                                Select document
+                            </option>
+
+                            <option value="aadhaar">
+                                Aadhaar Card
+                            </option>
+
+                            <option value="voter_id">
+                                Voter ID
+                            </option>
+
+                            <option value="driving_license">
+                                Driving Licence
+                            </option>
+
+                            <option value="passport">
+                                Passport
+                            </option>
+
+                            <option value="electricity_bill">
+                                Electricity Bill
+                            </option>
+
+                            <option value="water_bill">
+                                Water Bill
+                            </option>
+
+                            <option value="rent_agreement">
+                                Rent Agreement
+                            </option>
+
+                            <option value="property_tax">
+                                Property Tax Receipt
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                        <input type="file"
+                               name="correspondence-document1"
+                               accept="image/*,.pdf">
+
+                    </div>
+
+
+                    <!-- DOCUMENT 2 -->
+
+                    <div class="upload-card">
+
+                        <span class="upload-number">02</span>
+
+                        <h4>Address Document</h4>
+
+                        <select name="correspondence-document_type_2">
+
+                            <option value="">
+                                Select document
+                            </option>
+
+                            <option value="aadhaar">
+                                Aadhaar Card
+                            </option>
+
+                            <option value="voter_id">
+                                Voter ID
+                            </option>
+
+                            <option value="driving_license">
+                                Driving Licence
+                            </option>
+
+                            <option value="passport">
+                                Passport
+                            </option>
+
+                            <option value="electricity_bill">
+                                Electricity Bill
+                            </option>
+
+                            <option value="water_bill">
+                                Water Bill
+                            </option>
+
+                            <option value="rent_agreement">
+                                Rent Agreement
+                            </option>
+
+                            <option value="property_tax">
+                                Property Tax Receipt
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                        <input type="file"
+                               name="correspondence-document2"
+                               accept="image/*,.pdf">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 HOME PHOTOS
+            ========================================== -->
+
+            <div class="media-section">
+
+                <div class="media-heading">
+
+                    <div>
+
+                        <h3>Home Verification Photos</h3>
+
+                        <p>
+                            Capture two photos of your home.
+                            Location details will be stamped on the photo.
+                        </p>
+
+                    </div>
+
+                    <span class="camera-label">
+                        📷 Location Camera
+                    </span>
+
+                </div>
+
+
+                <div class="media-actions">
+
+                    <button type="button"
+                            class="camera-button"
+                            onclick="openCamera('correspondence')">
+
+                        📸 Capture Home Photos
+
+                    </button>
+
+                </div>
+
+
+                <input type="file"
+                       id="correspondence-building_photos"
+                       name="correspondence-building_photos"
+                       accept="image/*"
+                       multiple
+                       hidden>
+
+
+                <div id="correspondence-photo-preview"
+                     class="photo-preview">
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 VIDEO
+            ========================================== -->
+
+            <div class="media-section">
+
+                <div class="media-heading">
+
+                    <div>
+
+                        <h3>Surrounding Video</h3>
+
+                        <p>
+                            Record a short video around the property.
+                            Location information will be displayed on the video.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button type="button"
+                        class="video-button"
+                        onclick="openVideoCamera('correspondence')">
+
+                    🎥 Record Location Video
+
+                </button>
+
+
+                <input type="file"
+                       id="correspondence-video"
+                       name="correspondence-video"
+                       accept="video/*"
+                       hidden>
+
+
+                <div id="correspondence-video-preview"
+                     class="video-preview">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SAME ADDRESS
+        ================================================== -->
+
+        <label class="same-address-box">
+
+            <input type="checkbox"
+                   id="same_address"
+                   name="same_address">
+
+            <span class="custom-check"></span>
+
+            <span>
+                Permanent address is same as correspondence address
+            </span>
+
+        </label>
+
+
+
+        <!-- =================================================
+             PERMANENT ADDRESS
+        ================================================== -->
+
+        <section class="address-card"
+                 id="permanent-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="step-number">02</span>
+
+                    <div>
+
+                        <h2>Permanent Address</h2>
+
+                        <p>
+                            Enter your permanent residential address.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <span class="required-label">
+                    Required
+                </span>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="location-search">
+
+                <div class="search-box">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input type="text"
+                           id="permanent-search"
+                           placeholder="Search permanent address...">
+
+                    <button type="button"
+                            class="search-btn"
+                            onclick="searchLocation('permanent')">
+
+                        Search
+
+                    </button>
+
+                </div>
+
+                <button type="button"
+                        class="gps-btn"
+                        onclick="getCurrentLocation('permanent')">
+
+                    📍 Use Current Location
+
+                </button>
+
+            </div>
+
+
+            <!-- MAP -->
+
+            <div id="permanent-map"
+                 class="location-map">
+            </div>
+
+
+            <div id="permanent-location-message"
+                 class="location-message">
+
+                Search a location or use GPS.
+
+            </div>
+
+
+            <!-- GPS -->
+
+            <input type="hidden"
+                   id="permanent-latitude"
+                   name="permanent-latitude">
+
+            <input type="hidden"
+                   id="permanent-longitude"
+                   name="permanent-longitude">
+
+            <input type="hidden"
+                   id="permanent-location_accuracy"
+                   name="permanent-location_accuracy">
+
+
+            <!-- ADDRESS -->
+
+            <div class="address-grid">
+
+                <div class="form-group">
+
+                    <label>House / Flat No.</label>
+
+                    <input type="text"
+                           name="permanent-house_no"
+                           id="permanent-house_no"
+                           value="{{ permanent.house_no }}">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Street</label>
+
+                    <input type="text"
+                           name="permanent-street"
+                           id="permanent-street"
+                           value="{{ permanent.street }}">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Area</label>
+
+                    <input type="text"
+                           name="permanent-area"
+                           id="permanent-area"
+                           value="{{ permanent.area }}">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>City</label>
+
+                    <input type="text"
+                           name="permanent-city"
+                           id="permanent-city"
+                           value="{{ permanent.city }}">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>District</label>
+
+                    <input type="text"
+                           name="permanent-district"
+                           id="permanent-district"
+                           value="{{ permanent.district }}">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>State</label>
+
+                    <input type="text"
+                           name="permanent-state"
+                           id="permanent-state"
+                           value="{{ permanent.state }}">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Pincode</label>
+
+                    <input type="text"
+                           name="permanent-pincode"
+                           id="permanent-pincode"
+                           value="{{ permanent.pincode }}"
+                           maxlength="10">
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENTS -->
+
+            <div class="proof-section">
+
+                <div class="proof-title">
+
+                    <div>
+
+                        <h3>Address Documents</h3>
+
+                        <p>
+                            Upload two documents supporting this address.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="document-grid">
+
+                    <div class="upload-card">
+
+                        <span class="upload-number">01</span>
+
+                        <h4>Address Document</h4>
+
+                        <select name="permanent-document_type_1">
+
+                            <option value="">
+                                Select document
+                            </option>
+
+                            <option value="aadhaar">
+                                Aadhaar Card
+                            </option>
+
+                            <option value="voter_id">
+                                Voter ID
+                            </option>
+
+                            <option value="driving_license">
+                                Driving Licence
+                            </option>
+
+                            <option value="passport">
+                                Passport
+                            </option>
+
+                            <option value="electricity_bill">
+                                Electricity Bill
+                            </option>
+
+                            <option value="water_bill">
+                                Water Bill
+                            </option>
+
+                            <option value="rent_agreement">
+                                Rent Agreement
+                            </option>
+
+                            <option value="property_tax">
+                                Property Tax Receipt
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                        <input type="file"
+                               name="permanent-document1"
+                               accept="image/*,.pdf">
+
+                    </div>
+
+
+                    <div class="upload-card">
+
+                        <span class="upload-number">02</span>
+
+                        <h4>Address Document</h4>
+
+                        <select name="permanent-document_type_2">
+
+                            <option value="">
+                                Select document
+                            </option>
+
+                            <option value="aadhaar">
+                                Aadhaar Card
+                            </option>
+
+                            <option value="voter_id">
+                                Voter ID
+                            </option>
+
+                            <option value="driving_license">
+                                Driving Licence
+                            </option>
+
+                            <option value="passport">
+                                Passport
+                            </option>
+
+                            <option value="electricity_bill">
+                                Electricity Bill
+                            </option>
+
+                            <option value="water_bill">
+                                Water Bill
+                            </option>
+
+                            <option value="rent_agreement">
+                                Rent Agreement
+                            </option>
+
+                            <option value="property_tax">
+                                Property Tax Receipt
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                        <input type="file"
+                               name="permanent-document2"
+                               accept="image/*,.pdf">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PHOTOS -->
+
+            <div class="media-section">
+
+                <div class="media-heading">
+
+                    <div>
+
+                        <h3>Home Verification Photos</h3>
+
+                        <p>
+                            Capture two location-stamped photos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button type="button"
+                        class="camera-button"
+                        onclick="openCamera('permanent')">
+
+                    📸 Capture Home Photos
+
+                </button>
+
+
+                <input type="file"
+                       id="permanent-building_photos"
+                       name="permanent-building_photos"
+                       accept="image/*"
+                       multiple
+                       hidden>
+
+
+                <div id="permanent-photo-preview"
+                     class="photo-preview">
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO -->
+
+            <div class="media-section">
+
+                <div class="media-heading">
+
+                    <div>
+
+                        <h3>Surrounding Video</h3>
+
+                        <p>
+                            Record a short location-stamped video.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button type="button"
+                        class="video-button"
+                        onclick="openVideoCamera('permanent')">
+
+                    🎥 Record Location Video
+
+                </button>
+
+
+                <input type="file"
+                       id="permanent-video"
+                       name="permanent-video"
+                       accept="video/*"
+                       hidden>
+
+
+                <div id="permanent-video-preview"
+                     class="video-preview">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SUBMIT -->
+
+        <div class="submit-area">
+
+            <div class="submit-info">
+
+                <span>🔐</span>
+
+                <p>
+                    Your address evidence is securely submitted
+                    for verification.
+                </p>
+
+            </div>
+
+
+            <button type="submit"
+                    class="submit-button">
+
+                Submit Address Verification
+
+                <span>→</span>
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+<!-- =====================================================
+     CAMERA MODAL
+====================================================== -->
+
+<div id="cameraModal"
+     class="camera-modal">
+
+    <div class="camera-box">
+
+        <button type="button"
+                class="close-camera"
+                onclick="closeCamera()">
+
+            ×
+
+        </button>
+
+
+        <h2>Location Camera</h2>
+
+        <p>
+            Make sure your home is clearly visible.
+        </p>
+
+
+        <div class="camera-screen">
+
+            <video id="cameraVideo"
+                   autoplay
+                   playsinline>
+            </video>
+
+            <canvas id="cameraCanvas"></canvas>
+
+            <div class="camera-overlay">
+
+                <div>
+                    VERITRUST AI
+                </div>
+
+                <div id="cameraLocationText">
+                    Location unavailable
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="camera-controls">
+
+            <button type="button"
+                    onclick="capturePhoto()"
+                    class="capture-button">
+
+                ●
+
+            </button>
+
+        </div>
+
+
+        <p id="photoCounter"
+           class="photo-counter">
+
+            Photo 0 / 2
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     VIDEO MODAL
+====================================================== -->
+
+<div id="videoModal"
+     class="camera-modal">
+
+    <div class="camera-box video-box">
+
+        <button type="button"
+                class="close-camera"
+                onclick="stopVideoRecording()">
+
+            ×
+
+        </button>
+
+
+        <h2>Location Video</h2>
+
+        <p>
+            Slowly record the surrounding area.
+        </p>
+
+
+        <div class="camera-screen">
+
+            <video id="recordVideo"
+                   autoplay
+                   muted
+                   playsinline>
+            </video>
+
+            <canvas id="recordCanvas"></canvas>
+
+            <div class="camera-overlay">
+
+                <div>
+                    VERITRUST AI
+                </div>
+
+                <div id="videoLocationText">
+                    Location unavailable
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="video-controls">
+
+            <button type="button"
+                    id="startRecordingBtn"
+                    onclick="startVideoRecording()">
+
+                🔴 Start Recording
+
+            </button>
+
+            <button type="button"
+                    id="stopRecordingBtn"
+                    onclick="stopVideoRecording()"
+                    disabled>
+
+                ⏹ Stop
+
+            </button>
+
+        </div>
+
+        <p id="recordingStatus"></p>
+
+    </div>
+
+</div>
+
+
+
+<!-- Leaflet -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="{% static 'js/address_verification.js' %}"></script>
+
+</body>
+
+</html>

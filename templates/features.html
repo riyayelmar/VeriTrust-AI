@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+
+/* ===========================
+        Premium Background
+=========================== */
+
+body{
+
+    background:
+    radial-gradient(circle at top left,#2563EB 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#0EA5E9 0%,transparent 30%),
+    linear-gradient(135deg,#020617,#0F172A,#1E293B,#0F172A);
+
+    background-attachment:fixed;
+
+    min-height:100vh;
+
+    color:white;
+
+}
+
+/* ===========================
+        Features Section
+=========================== */
+
+.features-section{
+
+    padding:100px 0;
+
+}
+
+/* ===========================
+        Title
+=========================== */
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.section-title h1{
+
+    font-size:46px;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    margin-bottom:15px;
+
+}
+
+.section-title p{
+
+    color:#cbd5e1;
+
+    font-size:18px;
+
+}
+
+/* ===========================
+        Feature Card
+=========================== */
+
+.features-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    height:100%;
+
+    transition:.35s;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.30);
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-10px);
+
+    border:1px solid rgba(56,189,248,.5);
+
+    box-shadow:0 25px 45px rgba(56,189,248,.25);
+
+}
+
+/* ===========================
+        Icon
+=========================== */
+
+.features-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#2563EB,#38BDF8);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    font-size:30px;
+
+    margin-bottom:22px;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+
+}
+
+/* ===========================
+        Heading
+=========================== */
+
+.features-card h4{
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+/* ===========================
+        Description
+=========================== */
+
+.features-card p{
+
+    color:#CBD5E1;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+
+</style>
+
+<section class="features-section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>Powerful Features</h1>
+
+<p>
+Everything you need to verify employees securely using AI.
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+<div class="features-card">
+
+<div class="features-icon">🤖</div>
+
+<h4>AI Employee Verification</h4>
+
+<p>
+Automatically verify employee identity using AI-powered verification workflows.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="features-card">
+
+<div class="features-icon">📄</div>
+
+<h4>Document Verification</h4>
+
+<p>
+Validate Aadhaar, PAN, Passport and other identity documents securely.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="features-card">
+
+<div class="features-icon">🎓</div>
+
+<h4>Education Verification</h4>
+
+<p>
+Verify educational qualifications and certificates from trusted sources.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="features-card">
+
+<div class="features-icon">💼</div>
+
+<h4>Employment History</h4>
+
+<p>
+Check previous employment records and company verification status.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="features-card">
+
+<div class="features-icon">🛡️</div>
+
+<h4>Fraud Detection</h4>
+
+<p>
+Detect fake documents and suspicious information using intelligent AI models.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="features-card">
+
+<div class="features-icon">📊</div>
+
+<h4>Analytics Dashboard</h4>
+
+<p>
+Track verification progress, reports and employee insights in one dashboard.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

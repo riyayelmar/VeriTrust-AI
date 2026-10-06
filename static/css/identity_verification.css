@@ -1,0 +1,3885 @@
+﻿/* =========================================================
+   VERITRUST AI — IDENTITY VERIFICATION
+   Premium Compact KYC / SaaS UI
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(55, 92, 255, 0.12), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(0, 210, 255, 0.08), transparent 25%),
+        #07111f;
+    color: #eaf1ff;
+    min-height: 100vh;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.verification-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(7, 17, 31, 0.98),
+            rgba(5, 13, 24, 1)
+        );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.verification-header {
+    height: 72px;
+    padding: 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+    background: rgba(6, 16, 29, 0.88);
+    backdrop-filter: blur(20px);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* BRAND */
+
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #3867ff,
+        #6f8cff
+    );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(56, 103, 255, 0.28);
+}
+
+.brand-mark i {
+    font-size: 17px;
+}
+
+.brand-name {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.brand-name span {
+    color: #6d8cff;
+}
+
+.brand-caption {
+    margin-top: 2px;
+
+    font-size: 9px;
+    color: #6f8098;
+
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+
+/* HEADER CENTER */
+
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-label {
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+    color: #aebbd0;
+}
+
+.header-divider {
+    width: 1px;
+    height: 17px;
+
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.header-secure {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 10px;
+    color: #6ed6b0;
+}
+
+.header-secure i {
+    font-size: 9px;
+}
+
+
+/* HEADER STATUS */
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    font-size: 10px;
+    color: #91a0b7;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #39d69b;
+
+    box-shadow:
+        0 0 0 4px rgba(57, 214, 155, 0.10),
+        0 0 12px rgba(57, 214, 155, 0.65);
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.verification-container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+
+    padding: 30px 0 35px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.verification-hero {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 35px;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    color: #708cff;
+
+    letter-spacing: 1.7px;
+}
+
+.eyebrow i {
+    font-size: 11px;
+}
+
+.hero-content h1 {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.08;
+
+    letter-spacing: -1.5px;
+    font-weight: 800;
+
+    color: #f4f7ff;
+}
+
+.hero-content h1 span {
+    background: linear-gradient(
+        90deg,
+        #5d80ff,
+        #8a9eff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-content p {
+    max-width: 580px;
+
+    margin-top: 11px;
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    color: #77869c;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.hero-progress {
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.progress-score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 11px;
+}
+
+.progress-label {
+    font-size: 9px;
+    font-weight: 700;
+
+    color: #728198;
+    letter-spacing: 1.1px;
+}
+
+.progress-score strong {
+    font-size: 22px;
+    color: #f2f6ff;
+}
+
+.progress-track {
+    height: 7px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        #4b70ff,
+        #7f96ff
+    );
+
+    box-shadow:
+        0 0 15px rgba(83, 117, 255, 0.45);
+
+    transition: width 0.5s ease;
+}
+
+.progress-status {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    font-size: 9px;
+    color: #64748a;
+}
+
+#overallStatus {
+    color: #8fa3ff;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STEP NAVIGATION
+========================================================= */
+
+.verification-steps {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    padding: 10px 16px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-width: 0;
+}
+
+.step-number {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    color: #6e7e95;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.step-item.active .step-number {
+    background: rgba(76, 107, 255, 0.17);
+    color: #7690ff;
+}
+
+.step-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.step-text strong {
+    font-size: 10px;
+    color: #cbd5e5;
+}
+
+.step-text span {
+    font-size: 8px;
+    color: #65758c;
+}
+
+.step-line {
+    height: 1px;
+    flex: 1;
+
+    margin: 0 15px;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   COMMON WORKSPACE
+========================================================= */
+
+.workspace-card,
+.selfie-workspace,
+.final-verification-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.20);
+}
+
+.workspace-card {
+    padding: 22px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 17px;
+}
+
+.section-kicker {
+    margin-bottom: 5px;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    color: #6681ff;
+
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.workspace-header h2 {
+    font-size: 19px;
+    line-height: 1.2;
+
+    letter-spacing: -0.5px;
+
+    color: #f0f4ff;
+}
+
+.workspace-header p {
+    margin-top: 5px;
+
+    font-size: 10px;
+    color: #6f7e93;
+}
+
+.security-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    border-radius: 20px;
+
+    background: rgba(87, 111, 255, 0.08);
+    border: 1px solid rgba(87, 111, 255, 0.14);
+
+    color: #8095ff;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.security-badge i {
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   DOCUMENT GRID
+========================================================= */
+
+.document-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(250px, 0.9fr);
+
+    gap: 14px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   DOCUMENT CARD
+========================================================= */
+
+.document-card {
+    min-width: 0;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    background: rgba(4, 12, 24, 0.56);
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+
+    transition:
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.document-card:hover {
+    border-color: rgba(106, 133, 255, 0.25);
+}
+
+
+/* =========================================================
+   DOCUMENT HEADER
+========================================================= */
+
+.document-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+}
+
+.document-title-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.document-icon {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+}
+
+.aadhaar-icon {
+    background: rgba(71, 102, 255, 0.13);
+    color: #7590ff;
+}
+
+.pan-icon {
+    background: rgba(35, 187, 151, 0.11);
+    color: #55d8b3;
+}
+
+.document-title-area h3 {
+    font-size: 12px;
+    color: #e5ebf8;
+}
+
+.document-title-area span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 8px;
+    color: #627289;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 60px;
+
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.status-badge.pending {
+    color: #9aa8bb;
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.status-badge.verified {
+    color: #59dcae;
+    background: rgba(52, 210, 155, 0.10);
+}
+
+.status-badge.failed {
+    color: #ff7777;
+    background: rgba(255, 78, 78, 0.10);
+}
+
+
+/* =========================================================
+   AADHAAR UPLOAD AREA
+========================================================= */
+
+.document-upload-section {
+    width: 100%;
+}
+
+.aadhaar-card .document-upload-section {
+    display: block;
+}
+
+
+/* FRONT + BACK */
+
+.upload-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   UPLOAD LABEL
+========================================================= */
+
+.upload-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 6px;
+
+    font-size: 9px;
+    color: #8795aa;
+}
+
+.upload-label-row b {
+    color: #7188ff;
+    margin-right: 4px;
+}
+
+.required-tag {
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    color: #7689a4;
+
+    background: rgba(255, 255, 255, 0.04);
+}
+
+
+/* =========================================================
+   DOCUMENT UPLOAD BOX
+========================================================= */
+
+.document-upload-box,
+.pan-upload-box {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    min-height: 145px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    border: 1px dashed rgba(121, 139, 169, 0.28);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.012)
+        );
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.document-upload-box:hover,
+.pan-upload-box:hover {
+    border-color: rgba(100, 127, 255, 0.65);
+
+    background:
+        rgba(75, 103, 255, 0.045);
+}
+
+
+/* =========================================================
+   UPLOAD PLACEHOLDER
+========================================================= */
+
+.upload-placeholder {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 6px;
+
+    pointer-events: none;
+}
+
+.upload-plus {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: rgba(92, 117, 255, 0.10);
+
+    color: #7890ff;
+
+    font-size: 13px;
+}
+
+.upload-placeholder strong {
+    font-size: 9px;
+    color: #a9b5c8;
+}
+
+.upload-placeholder span {
+    font-size: 7px;
+    color: #5e6d82;
+}
+
+
+/* =========================================================
+   IMPORTANT — IMAGE PREVIEW
+========================================================= */
+
+/*
+   This is the main fix for your image-not-showing issue.
+*/
+
+.box-document-preview {
+    position: absolute;
+
+    inset: 6px;
+
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+
+    max-width: none;
+    max-height: none;
+
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 9px;
+
+    background: rgba(0, 0, 0, 0.28);
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/*
+   ONLY hide preview when JS actually adds hidden.
+*/
+
+.box-document-preview.hidden {
+    display: none !important;
+}
+
+
+/*
+   When image exists, hide placeholder.
+*/
+
+.document-upload-box.document-selected .upload-placeholder,
+.pan-upload-box.document-selected .upload-placeholder {
+    display: none;
+}
+
+
+/*
+   Keep image above everything.
+*/
+
+.document-upload-box.document-selected .box-document-preview,
+.pan-upload-box.document-selected .box-document-preview {
+    display: block;
+
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================================
+   FILE NAME
+========================================================= */
+
+.file-name {
+    position: absolute;
+
+    bottom: 6px;
+    left: 8px;
+    right: 8px;
+
+    z-index: 15;
+
+    display: none;
+
+    padding: 4px 6px;
+
+    border-radius: 5px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    color: #b9c5d8;
+
+    font-size: 7px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   AADHAAR ACTION
+========================================================= */
+
+.document-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+.action-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #617086;
+
+    font-size: 8px;
+}
+
+.action-info i {
+    color: #7189ff;
+}
+
+.primary-action,
+.secondary-action {
+    border: 0;
+
+    border-radius: 9px;
+
+    min-height: 36px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.primary-action {
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #496cff,
+        #6f87ff
+    );
+
+    box-shadow:
+        0 8px 20px rgba(74, 105, 255, 0.22);
+}
+
+.primary-action:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(74, 105, 255, 0.35);
+}
+
+.primary-action i {
+    font-size: 8px;
+}
+
+.secondary-action {
+    color: #aab7ca;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.secondary-action:hover {
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.full-action {
+    width: 100%;
+}
+
+
+/* =========================================================
+   PAN
+========================================================= */
+
+.pan-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.pan-upload-section {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.pan-upload-box {
+    min-height: 145px;
+
+    flex: 1;
+}
+
+.pan-action-row {
+    margin-top: 12px;
+}
+
+
+/* =========================================================
+   PROCESSING STATE
+========================================================= */
+
+.processing-state {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: rgba(75, 105, 255, 0.06);
+
+    border: 1px solid rgba(75, 105, 255, 0.12);
+}
+
+.processing-loader {
+    width: 24px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(255, 255, 255, 0.10);
+
+    border-top-color: #718aff;
+
+    animation: spin 0.8s linear infinite;
+}
+
+.processing-state strong,
+.success-state strong,
+.fallback-panel strong {
+    display: block;
+
+    font-size: 10px;
+
+    color: #dce5f5;
+}
+
+.processing-state span,
+.success-state span,
+.fallback-panel span {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 8px;
+    line-height: 1.5;
+
+    color: #697990;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success-state {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(52, 211, 153, 0.055);
+
+    border: 1px solid rgba(52, 211, 153, 0.13);
+}
+
+.success-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(52, 211, 153, 0.12);
+
+    color: #5cddae;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FALLBACK
+========================================================= */
+
+.fallback-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(255, 180, 70, 0.045);
+
+    border: 1px solid rgba(255, 180, 70, 0.12);
+}
+
+.fallback-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255, 180, 70, 0.10);
+
+    color: #ffbd67;
+
+    font-size: 11px;
+}
+
+.manual-fields {
+    display: flex;
+    gap: 6px;
+
+    margin-left: auto;
+}
+
+.manual-fields input,
+.fallback-panel > input {
+    height: 34px;
+
+    min-width: 120px;
+
+    padding: 0 9px;
+
+    outline: none;
+
+    border-radius: 7px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    background: rgba(0, 0, 0, 0.22);
+
+    color: #dce5f5;
+
+    font-size: 9px;
+}
+
+.manual-fields button,
+.fallback-panel > button {
+    height: 34px;
+
+    padding: 0 11px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: #596fff;
+
+    color: white;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   OTP
+========================================================= */
+
+.otp-panel {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(83, 108, 255, 0.055);
+
+    border: 1px solid rgba(83, 108, 255, 0.13);
+}
+
+.otp-icon {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(83, 108, 255, 0.12);
+
+    color: #7a91ff;
+
+    font-size: 11px;
+}
+
+.otp-content {
+    flex: 1;
+}
+
+.otp-content strong {
+    display: block;
+
+    font-size: 9px;
+    color: #dce5f5;
+}
+
+.otp-content span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 7px;
+    color: #68778d;
+}
+
+.otp-action {
+    display: flex;
+    gap: 6px;
+}
+
+.otp-action input {
+    width: 90px;
+    height: 34px;
+
+    border-radius: 7px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    background: rgba(0, 0, 0, 0.20);
+
+    outline: none;
+
+    color: white;
+
+    text-align: center;
+
+    letter-spacing: 3px;
+}
+
+.otp-action button {
+    height: 34px;
+
+    padding: 0 11px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: #5b73ff;
+
+    color: white;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LIVE SELFIE
+========================================================= */
+
+.selfie-workspace {
+    margin-top: 16px;
+
+    padding: 20px;
+}
+
+.selfie-header {
+    margin-bottom: 14px;
+}
+
+.selfie-layout {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+
+    gap: 14px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   CAMERA
+========================================================= */
+
+.selfie-camera-section {
+    min-width: 0;
+}
+
+.camera-box {
+    position: relative;
+
+    width: 100%;
+
+    height: 300px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    background: #02070e;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+#selfieVideo {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.camera-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.face-frame {
+    position: relative;
+
+    width: 180px;
+    height: 225px;
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    border-radius: 45%;
+
+    box-shadow:
+        0 0 0 999px rgba(0, 0, 0, 0.17);
+}
+
+.frame-corner {
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    border-color: #8195ff;
+    border-style: solid;
+}
+
+.top-left {
+    top: -1px;
+    left: -1px;
+
+    border-width: 2px 0 0 2px;
+
+    border-radius: 7px 0 0 0;
+}
+
+.top-right {
+    top: -1px;
+    right: -1px;
+
+    border-width: 2px 2px 0 0;
+
+    border-radius: 0 7px 0 0;
+}
+
+.bottom-left {
+    bottom: -1px;
+    left: -1px;
+
+    border-width: 0 0 2px 2px;
+
+    border-radius: 0 0 0 7px;
+}
+
+.bottom-right {
+    bottom: -1px;
+    right: -1px;
+
+    border-width: 0 2px 2px 0;
+
+    border-radius: 0 0 7px 0;
+}
+
+.camera-message {
+    position: absolute;
+
+    bottom: 12px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: rgba(0, 0, 0, 0.58);
+
+    color: #c5d0e0;
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SELFIE CONTROLS
+========================================================= */
+
+.selfie-controls {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 9px;
+}
+
+.selfie-controls button {
+    flex: 1;
+
+    min-width: 105px;
+}
+
+
+/* =========================================================
+   SELFIE PREVIEW
+========================================================= */
+
+.selfie-preview-wrapper {
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.preview-label {
+    margin-bottom: 8px;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    color: #687990;
+
+    letter-spacing: 1.1px;
+}
+
+.selfie-preview-box {
+    width: 100%;
+
+    height: 245px;
+
+    overflow: hidden;
+
+    border-radius: 11px;
+
+    background: #02070e;
+}
+
+#selfiePreview {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   SELFIE STATES
+========================================================= */
+
+.selfie-state {
+    grid-column: 1 / -1;
+}
+
+.result-state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(255, 85, 85, 0.055);
+
+    border: 1px solid rgba(255, 85, 85, 0.13);
+}
+
+.result-warning-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 85, 85, 0.11);
+
+    color: #ff8585;
+}
+
+
+/* =========================================================
+   FINAL RESULT
+========================================================= */
+
+.final-verification-card {
+    margin-top: 16px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.final-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.final-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background: rgba(76, 104, 255, 0.10);
+
+    color: #7890ff;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.final-copy h2 {
+    font-size: 14px;
+
+    color: #e9eef8;
+}
+
+.final-copy p {
+    max-width: 600px;
+
+    margin-top: 4px;
+
+    font-size: 9px;
+    line-height: 1.5;
+
+    color: #6e7d92;
+}
+
+.score-area {
+    min-width: 130px;
+
+    padding-left: 20px;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+    text-align: right;
+}
+
+.score-area span {
+    display: block;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    color: #687890;
+
+    letter-spacing: 1px;
+}
+
+.score-area strong {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 24px;
+
+    color: #f2f6ff;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.verification-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 2px 0;
+
+    color: #536278;
+
+    font-size: 8px;
+}
+
+.verification-footer div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.verification-footer i {
+    color: #607aff;
+}
+
+.verification-footer span {
+    color: #4e5c70;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    z-index: 9999;
+
+    min-width: 230px;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    background: rgba(13, 24, 40, 0.95);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    color: #dce5f5;
+
+    font-size: 9px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+
+    transform: translateY(20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .verification-header {
+        padding: 0 20px;
+    }
+
+    .header-center {
+        display: none;
+    }
+
+    .verification-hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .hero-progress {
+        max-width: none;
+    }
+
+    .document-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .selfie-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .selfie-preview-wrapper {
+        max-width: 400px;
+    }
+
+    .final-verification-card {
+        align-items: flex-start;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .verification-header {
+        height: 62px;
+        padding: 0 14px;
+    }
+
+    .brand-caption {
+        display: none;
+    }
+
+    .header-status {
+        padding: 7px 9px;
+    }
+
+    .header-status span:last-child {
+        display: none;
+    }
+
+    .verification-container {
+        width: min(100% - 24px, 1180px);
+
+        padding-top: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 29px;
+    }
+
+    .verification-steps {
+        overflow-x: auto;
+    }
+
+    .step-item {
+        flex-shrink: 0;
+    }
+
+    .step-line {
+        min-width: 25px;
+        margin: 0 8px;
+    }
+
+    .workspace-card,
+    .selfie-workspace {
+        padding: 14px;
+    }
+
+    .workspace-header {
+        align-items: flex-start;
+    }
+
+    .security-badge {
+        display: none;
+    }
+
+    .upload-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .document-upload-box,
+    .pan-upload-box {
+        min-height: 180px;
+    }
+
+    .document-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-info {
+        justify-content: center;
+    }
+
+    .primary-action {
+        width: 100%;
+    }
+
+    .fallback-panel {
+        flex-wrap: wrap;
+    }
+
+    .manual-fields {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .manual-fields input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .otp-panel {
+        flex-wrap: wrap;
+    }
+
+    .otp-content {
+        min-width: calc(100% - 45px);
+    }
+
+    .otp-action {
+        width: 100%;
+    }
+
+    .otp-action input {
+        flex: 1;
+    }
+
+    .otp-action button {
+        flex: 1;
+    }
+
+    .camera-box {
+        height: 300px;
+    }
+
+    .selfie-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .selfie-controls button {
+        width: 100%;
+    }
+
+    .final-verification-card {
+        flex-direction: column;
+    }
+
+    .score-area {
+        width: 100%;
+
+        padding: 12px 0 0;
+
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+        text-align: left;
+    }
+
+    .verification-footer {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 7px;
+    }
+}
+
+/* =========================================================
+   VERITRUST AI — IDENTITY VERIFICATION
+   Premium Compact KYC / SaaS UI
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(55, 92, 255, 0.12), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(0, 210, 255, 0.08), transparent 25%),
+        #07111f;
+    color: #eaf1ff;
+    min-height: 100vh;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.verification-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(7, 17, 31, 0.98),
+            rgba(5, 13, 24, 1)
+        );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.verification-header {
+    height: 72px;
+    padding: 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+    background: rgba(6, 16, 29, 0.88);
+    backdrop-filter: blur(20px);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* BRAND */
+
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #3867ff,
+        #6f8cff
+    );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(56, 103, 255, 0.28);
+}
+
+.brand-mark i {
+    font-size: 17px;
+}
+
+.brand-name {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.brand-name span {
+    color: #6d8cff;
+}
+
+.brand-caption {
+    margin-top: 2px;
+
+    font-size: 9px;
+    color: #6f8098;
+
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+
+/* HEADER CENTER */
+
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-label {
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+    color: #aebbd0;
+}
+
+.header-divider {
+    width: 1px;
+    height: 17px;
+
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.header-secure {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 10px;
+    color: #6ed6b0;
+}
+
+.header-secure i {
+    font-size: 9px;
+}
+
+
+/* HEADER STATUS */
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    font-size: 10px;
+    color: #91a0b7;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #39d69b;
+
+    box-shadow:
+        0 0 0 4px rgba(57, 214, 155, 0.10),
+        0 0 12px rgba(57, 214, 155, 0.65);
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.verification-container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+
+    padding: 30px 0 35px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.verification-hero {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 35px;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 10px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    color: #708cff;
+
+    letter-spacing: 1.7px;
+}
+
+.eyebrow i {
+    font-size: 11px;
+}
+
+.hero-content h1 {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.08;
+
+    letter-spacing: -1.5px;
+    font-weight: 800;
+
+    color: #f4f7ff;
+}
+
+.hero-content h1 span {
+    background: linear-gradient(
+        90deg,
+        #5d80ff,
+        #8a9eff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-content p {
+    max-width: 580px;
+
+    margin-top: 11px;
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    color: #77869c;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.hero-progress {
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.progress-score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 11px;
+}
+
+.progress-label {
+    font-size: 9px;
+    font-weight: 700;
+
+    color: #728198;
+    letter-spacing: 1.1px;
+}
+
+.progress-score strong {
+    font-size: 22px;
+    color: #f2f6ff;
+}
+
+.progress-track {
+    height: 7px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        #4b70ff,
+        #7f96ff
+    );
+
+    box-shadow:
+        0 0 15px rgba(83, 117, 255, 0.45);
+
+    transition: width 0.5s ease;
+}
+
+.progress-status {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    font-size: 9px;
+    color: #64748a;
+}
+
+#overallStatus {
+    color: #8fa3ff;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STEP NAVIGATION
+========================================================= */
+
+.verification-steps {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    padding: 10px 16px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-width: 0;
+}
+
+.step-number {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    color: #6e7e95;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.step-item.active .step-number {
+    background: rgba(76, 107, 255, 0.17);
+    color: #7690ff;
+}
+
+.step-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.step-text strong {
+    font-size: 10px;
+    color: #cbd5e5;
+}
+
+.step-text span {
+    font-size: 8px;
+    color: #65758c;
+}
+
+.step-line {
+    height: 1px;
+    flex: 1;
+
+    margin: 0 15px;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   COMMON WORKSPACE
+========================================================= */
+
+.workspace-card,
+.selfie-workspace,
+.final-verification-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.20);
+}
+
+.workspace-card {
+    padding: 22px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 17px;
+}
+
+.section-kicker {
+    margin-bottom: 5px;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    color: #6681ff;
+
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.workspace-header h2 {
+    font-size: 19px;
+    line-height: 1.2;
+
+    letter-spacing: -0.5px;
+
+    color: #f0f4ff;
+}
+
+.workspace-header p {
+    margin-top: 5px;
+
+    font-size: 10px;
+    color: #6f7e93;
+}
+
+.security-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    border-radius: 20px;
+
+    background: rgba(87, 111, 255, 0.08);
+    border: 1px solid rgba(87, 111, 255, 0.14);
+
+    color: #8095ff;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.security-badge i {
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   DOCUMENT GRID
+========================================================= */
+
+.document-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(250px, 0.9fr);
+
+    gap: 14px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   DOCUMENT CARD
+========================================================= */
+
+.document-card {
+    min-width: 0;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    background: rgba(4, 12, 24, 0.56);
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+
+    transition:
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.document-card:hover {
+    border-color: rgba(106, 133, 255, 0.25);
+}
+
+
+/* =========================================================
+   DOCUMENT HEADER
+========================================================= */
+
+.document-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+}
+
+.document-title-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.document-icon {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+}
+
+.aadhaar-icon {
+    background: rgba(71, 102, 255, 0.13);
+    color: #7590ff;
+}
+
+.pan-icon {
+    background: rgba(35, 187, 151, 0.11);
+    color: #55d8b3;
+}
+
+.document-title-area h3 {
+    font-size: 12px;
+    color: #e5ebf8;
+}
+
+.document-title-area span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 8px;
+    color: #627289;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 60px;
+
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.status-badge.pending {
+    color: #9aa8bb;
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.status-badge.verified {
+    color: #59dcae;
+    background: rgba(52, 210, 155, 0.10);
+}
+
+.status-badge.failed {
+    color: #ff7777;
+    background: rgba(255, 78, 78, 0.10);
+}
+
+
+/* =========================================================
+   AADHAAR UPLOAD AREA
+========================================================= */
+
+.document-upload-section {
+    width: 100%;
+}
+
+.aadhaar-card .document-upload-section {
+    display: block;
+}
+
+
+/* FRONT + BACK */
+
+.upload-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+   UPLOAD LABEL
+========================================================= */
+
+.upload-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 6px;
+
+    font-size: 9px;
+    color: #8795aa;
+}
+
+.upload-label-row b {
+    color: #7188ff;
+    margin-right: 4px;
+}
+
+.required-tag {
+    padding: 3px 6px;
+
+    border-radius: 5px;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    color: #7689a4;
+
+    background: rgba(255, 255, 255, 0.04);
+}
+
+
+/* =========================================================
+   DOCUMENT UPLOAD BOX
+========================================================= */
+
+.document-upload-box,
+.pan-upload-box {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    min-height: 145px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    border: 1px dashed rgba(121, 139, 169, 0.28);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.012)
+        );
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.document-upload-box:hover,
+.pan-upload-box:hover {
+    border-color: rgba(100, 127, 255, 0.65);
+
+    background:
+        rgba(75, 103, 255, 0.045);
+}
+
+
+/* =========================================================
+   UPLOAD PLACEHOLDER
+========================================================= */
+
+.upload-placeholder {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 6px;
+
+    pointer-events: none;
+}
+
+.upload-plus {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: rgba(92, 117, 255, 0.10);
+
+    color: #7890ff;
+
+    font-size: 13px;
+}
+
+.upload-placeholder strong {
+    font-size: 9px;
+    color: #a9b5c8;
+}
+
+.upload-placeholder span {
+    font-size: 7px;
+    color: #5e6d82;
+}
+
+
+/* =========================================================
+   IMPORTANT — IMAGE PREVIEW
+========================================================= */
+
+/*
+   This is the main fix for your image-not-showing issue.
+*/
+
+.box-document-preview {
+    position: absolute;
+
+    inset: 6px;
+
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+
+    max-width: none;
+    max-height: none;
+
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 9px;
+
+    background: rgba(0, 0, 0, 0.28);
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/*
+   ONLY hide preview when JS actually adds hidden.
+*/
+
+.box-document-preview.hidden {
+    display: none !important;
+}
+
+
+/*
+   When image exists, hide placeholder.
+*/
+
+.document-upload-box.document-selected .upload-placeholder,
+.pan-upload-box.document-selected .upload-placeholder {
+    display: none;
+}
+
+
+/*
+   Keep image above everything.
+*/
+
+.document-upload-box.document-selected .box-document-preview,
+.pan-upload-box.document-selected .box-document-preview {
+    display: block;
+
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================================
+   FILE NAME
+========================================================= */
+
+.file-name {
+    position: absolute;
+
+    bottom: 6px;
+    left: 8px;
+    right: 8px;
+
+    z-index: 15;
+
+    display: none;
+
+    padding: 4px 6px;
+
+    border-radius: 5px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    color: #b9c5d8;
+
+    font-size: 7px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   AADHAAR ACTION
+========================================================= */
+
+.document-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+.action-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #617086;
+
+    font-size: 8px;
+}
+
+.action-info i {
+    color: #7189ff;
+}
+
+.primary-action,
+.secondary-action {
+    border: 0;
+
+    border-radius: 9px;
+
+    min-height: 36px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.primary-action {
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #496cff,
+        #6f87ff
+    );
+
+    box-shadow:
+        0 8px 20px rgba(74, 105, 255, 0.22);
+}
+
+.primary-action:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(74, 105, 255, 0.35);
+}
+
+.primary-action i {
+    font-size: 8px;
+}
+
+.secondary-action {
+    color: #aab7ca;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.secondary-action:hover {
+    background: rgba(255, 255, 255, 0.075);
+}
+
+.full-action {
+    width: 100%;
+}
+
+
+/* =========================================================
+   PAN
+========================================================= */
+
+.pan-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.pan-upload-section {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.pan-upload-box {
+    min-height: 145px;
+
+    flex: 1;
+}
+
+.pan-action-row {
+    margin-top: 12px;
+}
+
+
+/* =========================================================
+   PROCESSING STATE
+========================================================= */
+
+.processing-state {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: rgba(75, 105, 255, 0.06);
+
+    border: 1px solid rgba(75, 105, 255, 0.12);
+}
+
+.processing-loader {
+    width: 24px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(255, 255, 255, 0.10);
+
+    border-top-color: #718aff;
+
+    animation: spin 0.8s linear infinite;
+}
+
+.processing-state strong,
+.success-state strong,
+.fallback-panel strong {
+    display: block;
+
+    font-size: 10px;
+
+    color: #dce5f5;
+}
+
+.processing-state span,
+.success-state span,
+.fallback-panel span {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 8px;
+    line-height: 1.5;
+
+    color: #697990;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success-state {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(52, 211, 153, 0.055);
+
+    border: 1px solid rgba(52, 211, 153, 0.13);
+}
+
+.success-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(52, 211, 153, 0.12);
+
+    color: #5cddae;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FALLBACK
+========================================================= */
+
+.fallback-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(255, 180, 70, 0.045);
+
+    border: 1px solid rgba(255, 180, 70, 0.12);
+}
+
+.fallback-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255, 180, 70, 0.10);
+
+    color: #ffbd67;
+
+    font-size: 11px;
+}
+
+.manual-fields {
+    display: flex;
+    gap: 6px;
+
+    margin-left: auto;
+}
+
+.manual-fields input,
+.fallback-panel > input {
+    height: 34px;
+
+    min-width: 120px;
+
+    padding: 0 9px;
+
+    outline: none;
+
+    border-radius: 7px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    background: rgba(0, 0, 0, 0.22);
+
+    color: #dce5f5;
+
+    font-size: 9px;
+}
+
+.manual-fields button,
+.fallback-panel > button {
+    height: 34px;
+
+    padding: 0 11px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: #596fff;
+
+    color: white;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   OTP
+========================================================= */
+
+.otp-panel {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(83, 108, 255, 0.055);
+
+    border: 1px solid rgba(83, 108, 255, 0.13);
+}
+
+.otp-icon {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(83, 108, 255, 0.12);
+
+    color: #7a91ff;
+
+    font-size: 11px;
+}
+
+.otp-content {
+    flex: 1;
+}
+
+.otp-content strong {
+    display: block;
+
+    font-size: 9px;
+    color: #dce5f5;
+}
+
+.otp-content span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 7px;
+    color: #68778d;
+}
+
+.otp-action {
+    display: flex;
+    gap: 6px;
+}
+
+.otp-action input {
+    width: 90px;
+    height: 34px;
+
+    border-radius: 7px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    background: rgba(0, 0, 0, 0.20);
+
+    outline: none;
+
+    color: white;
+
+    text-align: center;
+
+    letter-spacing: 3px;
+}
+
+.otp-action button {
+    height: 34px;
+
+    padding: 0 11px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: #5b73ff;
+
+    color: white;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LIVE SELFIE
+========================================================= */
+
+.selfie-workspace {
+    margin-top: 16px;
+
+    padding: 20px;
+}
+
+.selfie-header {
+    margin-bottom: 14px;
+}
+
+.selfie-layout {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+
+    gap: 14px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   CAMERA
+========================================================= */
+
+.selfie-camera-section {
+    min-width: 0;
+}
+
+.camera-box {
+    position: relative;
+
+    width: 100%;
+
+    height: 300px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    background: #02070e;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+#selfieVideo {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.camera-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.face-frame {
+    position: relative;
+
+    width: 180px;
+    height: 225px;
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+
+    border-radius: 45%;
+
+    box-shadow:
+        0 0 0 999px rgba(0, 0, 0, 0.17);
+}
+
+.frame-corner {
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    border-color: #8195ff;
+    border-style: solid;
+}
+
+.top-left {
+    top: -1px;
+    left: -1px;
+
+    border-width: 2px 0 0 2px;
+
+    border-radius: 7px 0 0 0;
+}
+
+.top-right {
+    top: -1px;
+    right: -1px;
+
+    border-width: 2px 2px 0 0;
+
+    border-radius: 0 7px 0 0;
+}
+
+.bottom-left {
+    bottom: -1px;
+    left: -1px;
+
+    border-width: 0 0 2px 2px;
+
+    border-radius: 0 0 0 7px;
+}
+
+.bottom-right {
+    bottom: -1px;
+    right: -1px;
+
+    border-width: 0 2px 2px 0;
+
+    border-radius: 0 0 7px 0;
+}
+
+.camera-message {
+    position: absolute;
+
+    bottom: 12px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: rgba(0, 0, 0, 0.58);
+
+    color: #c5d0e0;
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SELFIE CONTROLS
+========================================================= */
+
+.selfie-controls {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 9px;
+}
+
+.selfie-controls button {
+    flex: 1;
+
+    min-width: 105px;
+}
+
+
+/* =========================================================
+   SELFIE PREVIEW
+========================================================= */
+
+.selfie-preview-wrapper {
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.preview-label {
+    margin-bottom: 8px;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    color: #687990;
+
+    letter-spacing: 1.1px;
+}
+
+.selfie-preview-box {
+    width: 100%;
+
+    height: 245px;
+
+    overflow: hidden;
+
+    border-radius: 11px;
+
+    background: #02070e;
+}
+
+#selfiePreview {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   SELFIE STATES
+========================================================= */
+
+.selfie-state {
+    grid-column: 1 / -1;
+}
+
+.result-state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(255, 85, 85, 0.055);
+
+    border: 1px solid rgba(255, 85, 85, 0.13);
+}
+
+.result-warning-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 85, 85, 0.11);
+
+    color: #ff8585;
+}
+
+
+/* =========================================================
+   FINAL RESULT
+========================================================= */
+
+.final-verification-card {
+    margin-top: 16px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.final-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.final-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background: rgba(76, 104, 255, 0.10);
+
+    color: #7890ff;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.final-copy h2 {
+    font-size: 14px;
+
+    color: #e9eef8;
+}
+
+.final-copy p {
+    max-width: 600px;
+
+    margin-top: 4px;
+
+    font-size: 9px;
+    line-height: 1.5;
+
+    color: #6e7d92;
+}
+
+.score-area {
+    min-width: 130px;
+
+    padding-left: 20px;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+
+    text-align: right;
+}
+
+.score-area span {
+    display: block;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    color: #687890;
+
+    letter-spacing: 1px;
+}
+
+.score-area strong {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 24px;
+
+    color: #f2f6ff;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.verification-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 2px 0;
+
+    color: #536278;
+
+    font-size: 8px;
+}
+
+.verification-footer div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.verification-footer i {
+    color: #607aff;
+}
+
+.verification-footer span {
+    color: #4e5c70;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+
+    right: 22px;
+    bottom: 22px;
+
+    z-index: 9999;
+
+    min-width: 230px;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    background: rgba(13, 24, 40, 0.95);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    color: #dce5f5;
+
+    font-size: 9px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+
+    transform: translateY(20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .verification-header {
+        padding: 0 20px;
+    }
+
+    .header-center {
+        display: none;
+    }
+
+    .verification-hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .hero-progress {
+        max-width: none;
+    }
+
+    .document-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .selfie-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .selfie-preview-wrapper {
+        max-width: 400px;
+    }
+
+    .final-verification-card {
+        align-items: flex-start;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .verification-header {
+        height: 62px;
+        padding: 0 14px;
+    }
+
+    .brand-caption {
+        display: none;
+    }
+
+    .header-status {
+        padding: 7px 9px;
+    }
+
+    .header-status span:last-child {
+        display: none;
+    }
+
+    .verification-container {
+        width: min(100% - 24px, 1180px);
+
+        padding-top: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 29px;
+    }
+
+    .verification-steps {
+        overflow-x: auto;
+    }
+
+    .step-item {
+        flex-shrink: 0;
+    }
+
+    .step-line {
+        min-width: 25px;
+        margin: 0 8px;
+    }
+
+    .workspace-card,
+    .selfie-workspace {
+        padding: 14px;
+    }
+
+    .workspace-header {
+        align-items: flex-start;
+    }
+
+    .security-badge {
+        display: none;
+    }
+
+    .upload-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .document-upload-box,
+    .pan-upload-box {
+        min-height: 180px;
+    }
+
+    .document-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-info {
+        justify-content: center;
+    }
+
+    .primary-action {
+        width: 100%;
+    }
+
+    .fallback-panel {
+        flex-wrap: wrap;
+    }
+
+    .manual-fields {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .manual-fields input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .otp-panel {
+        flex-wrap: wrap;
+    }
+
+    .otp-content {
+        min-width: calc(100% - 45px);
+    }
+
+    .otp-action {
+        width: 100%;
+    }
+
+    .otp-action input {
+        flex: 1;
+    }
+
+    .otp-action button {
+        flex: 1;
+    }
+
+    .camera-box {
+        height: 300px;
+    }
+
+    .selfie-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .selfie-controls button {
+        width: 100%;
+    }
+
+    .final-verification-card {
+        flex-direction: column;
+    }
+
+    .score-area {
+        width: 100%;
+
+        padding: 12px 0 0;
+
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+        text-align: left;
+    }
+
+    .verification-footer {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 7px;
+    }
+}

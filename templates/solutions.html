@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(135deg,#0F172A,#1E3A8A);
+    min-height:100vh;
+    color:white;
+}
+
+/* ===========================
+   Solution Section
+=========================== */
+
+.solution-section{
+    padding:100px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title h1{
+    font-size:42px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+.section-title p{
+    color:#CBD5E1;
+    font-size:18px;
+}
+
+/* ===========================
+   Solution Cards
+=========================== */
+
+.solution-card{
+
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:20px;
+    padding:35px;
+    height:100%;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+    transition:.3s;
+}
+
+.solution-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(56,189,248,.30);
+
+}
+
+.solution-icon{
+
+    width:70px;
+    height:70px;
+
+    background:linear-gradient(135deg,#2563EB,#38BDF8);
+
+    border-radius:18px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+
+    font-size:30px;
+
+    margin-bottom:20px;
+
+}
+
+.solution-card h4{
+
+    color:white;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+.solution-card p{
+
+    color:#CBD5E1;
+
+    line-height:1.7;
+
+}
+
+/* ===========================
+   Workflow
+=========================== */
+
+.workflow{
+
+    margin-top:80px;
+
+}
+
+/* ===========================
+   Workflow Cards
+=========================== */
+
+.step{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    padding:25px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    height:100%;
+
+    transition:.3s;
+
+}
+
+.step:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(56,189,248,.30);
+
+}
+
+.step-number{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563EB,#38BDF8);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:0 auto 20px;
+
+    font-weight:bold;
+
+    font-size:22px;
+
+}
+
+.step h5{
+
+    color:white;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.step p{
+
+    color:#CBD5E1;
+
+    margin:0;
+
+    line-height:1.6;
+
+}
+</style>
+
+<section class="solution-section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>Solutions We Provide</h1>
+
+<p>
+Smart verification solutions for modern organizations.
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-6 col-lg-3">
+
+<div class="solution-card">
+
+<div class="solution-icon">🏢</div>
+
+<h4>Corporate HR</h4>
+
+<p>
+Simplify employee onboarding with AI-powered verification.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-3">
+
+<div class="solution-card">
+
+<div class="solution-icon">👥</div>
+
+<h4>Recruitment Agencies</h4>
+
+<p>
+Verify candidates quickly before placing them with clients.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-3">
+
+<div class="solution-card">
+
+<div class="solution-icon">🎓</div>
+
+<h4>Educational Institutions</h4>
+
+<p>
+Validate certificates and student credentials securely.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6 col-lg-3">
+
+<div class="solution-card">
+
+<div class="solution-icon">🏛️</div>
+
+<h4>Government</h4>
+
+<p>
+Secure identity verification for public sector organizations.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="workflow">
+
+<div class="section-title">
+
+<h2 style="color:#0f172a">Verification Workflow</h2>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-3">
+
+<div class="step">
+
+<div class="step-number">1</div>
+
+<h5>Register</h5>
+
+<p>Create an organization account.</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="step">
+
+<div class="step-number">2</div>
+
+<h5>Upload Details</h5>
+
+<p>Submit employee documents.</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="step">
+
+<div class="step-number">3</div>
+
+<h5>AI Verification</h5>
+
+<p>AI validates documents and identity.</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="step">
+
+<div class="step-number">4</div>
+
+<h5>Generate Report</h5>
+
+<p>Download the final verification report.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

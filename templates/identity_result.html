@@ -1,0 +1,993 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Identity Verification Result | VeriTrust AI</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/identity_result.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+<div class="result-page">
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="result-navbar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+                    VeriTrust <span>AI</span>
+                </h1>
+
+                <p>
+                    Identity Verification
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-right">
+
+            <div class="secure-indicator">
+
+                <span class="secure-dot"></span>
+
+                Secure Session
+
+            </div>
+
+
+            <div class="user-mini">
+
+                <div class="user-avatar">
+
+                    {% if request.user.first_name %}
+                        {{ request.user.first_name|first|upper }}
+                    {% else %}
+                        {{ request.user.email|first|upper }}
+                    {% endif %}
+
+                </div>
+
+
+                <div class="user-mini-info">
+
+                    <strong>
+
+                        {% if request.user.first_name %}
+                            {{ request.user.first_name }}
+                        {% else %}
+                            User
+                        {% endif %}
+
+                    </strong>
+
+                    <span>
+                        {{ request.user.email }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="result-container">
+
+
+        <!-- BREADCRUMB -->
+
+        <div class="breadcrumb">
+
+            <a href="{% url 'dashboard' %}">
+                Dashboard
+            </a>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span>
+                Identity Verification
+            </span>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <strong>
+                Result
+            </strong>
+
+        </div>
+
+
+
+        <!-- =========================
+             REPORT HEADER
+        ========================== -->
+
+        <section class="report-header">
+
+            <div class="report-title">
+
+                <div class="report-icon">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+
+                <div>
+
+                    <span class="eyebrow">
+                        VERIFICATION REPORT
+                    </span>
+
+                    <h2>
+                        Identity Verification Result
+                    </h2>
+
+                    <p>
+                        AI-powered verification of your identity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-meta">
+
+                <span>
+                    VERIFICATION ID
+                </span>
+
+                <strong>
+                    #VT-{{ request.user.id|stringformat:"05d" }}
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FINAL RESULT
+        ========================== -->
+
+        <section class="result-banner
+            {% if identity.status == 'Verified' %}
+                result-success
+            {% elif identity.status == 'Rejected' %}
+                result-danger
+            {% else %}
+                result-warning
+            {% endif %}">
+
+
+            <div class="result-status-icon">
+
+                {% if identity.status == "Verified" %}
+
+                    <i class="fa-solid fa-check"></i>
+
+                {% elif identity.status == "Rejected" %}
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                {% else %}
+
+                    <i class="fa-solid fa-clock"></i>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="result-status-content">
+
+                <span>
+                    OVERALL STATUS
+                </span>
+
+                <h2>
+                    {{ identity.status|default:"Pending" }}
+                </h2>
+
+                <p>
+
+                    {% if identity.status == "Verified" %}
+
+                        Your identity has been successfully verified.
+
+                    {% elif identity.status == "Rejected" %}
+
+                        Your identity verification was not successful.
+
+                    {% else %}
+
+                        Your identity verification is currently under review.
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <div class="result-status-badge">
+
+                {% if identity.status == "Verified" %}
+
+                    <i class="fa-solid fa-circle-check"></i>
+                    VERIFIED
+
+                {% elif identity.status == "Rejected" %}
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    REJECTED
+
+                {% else %}
+
+                    <i class="fa-solid fa-clock"></i>
+                    UNDER REVIEW
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             KEY METRICS
+        ========================== -->
+
+        <section class="metrics-grid">
+
+
+            <!-- FACE MATCH -->
+
+            <div class="metric-card">
+
+                <div class="metric-card-top">
+
+                    <div class="metric-icon blue">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+
+                    <span>
+                        FACE MATCH
+                    </span>
+
+                </div>
+
+
+                <div class="metric-number">
+
+                    {% with score=identity.face_match_percentage|default_if_none:"0" %}
+                        {{ score }}%
+                    {% endwith %}
+
+                </div>
+
+
+                {% with score=identity.face_match_percentage|default_if_none:"0" %}
+
+                <div class="score-progress">
+
+                    <div class="score-progress-fill"
+                         data-score="{{ score }}">
+                    </div>
+
+                </div>
+
+                {% endwith %}
+
+
+                <div class="metric-bottom">
+
+                    <span>
+                        AI confidence
+                    </span>
+
+                    {% if identity.face_match_percentage >= 75 %}
+
+                        <strong class="text-success">
+                            High Match
+                        </strong>
+
+                    {% elif identity.face_match_percentage >= 50 %}
+
+                        <strong class="text-warning">
+                            Moderate
+                        </strong>
+
+                    {% else %}
+
+                        <strong class="text-danger">
+                            Low Match
+                        </strong>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LIVENESS -->
+
+            <div class="metric-card">
+
+                <div class="metric-card-top">
+
+                    <div class="metric-icon purple">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+
+                    <span>
+                        LIVE SELFIE
+                    </span>
+
+                </div>
+
+
+                <div class="metric-main-status">
+
+                    {% if identity.is_live_verified %}
+
+                        <strong class="text-success">
+                            Verified
+                        </strong>
+
+                    {% elif identity.live_photo %}
+
+
+                        <strong class="text-warning">
+                            Under Review
+                        </strong>
+
+                    {% else %}
+                    <strong class="text-warning">
+                       Pending
+                   </strong>
+                   {% endif %}
+
+                </div>
+
+
+                <div class="metric-description">
+
+                    {% if identity.is_live_verified %}
+
+                        <i class="fa-solid fa-circle-check"></i>
+                        Live selfie verified.
+
+                    {% elif identity.live_photo %}
+
+                        <i class="fa-solid fa-clock"></i>
+                        Live selfi captured.
+
+                    {% else %}
+
+                    <i class="fa-solid fa-camera"></i>
+                    Live selfie not captured.
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DOCUMENTS -->
+
+            <div class="metric-card">
+
+                <div class="metric-card-top">
+
+                    <div class="metric-icon cyan">
+                        <i class="fa-solid fa-file-shield"></i>
+                    </div>
+
+                    <span>
+                        DOCUMENTS
+                    </span>
+
+                </div>
+
+
+                <div class="metric-main-status">
+
+                    {% if identity.aadhaar_front and identity.aadhaar_back and identity.pan_card %}
+
+                        <strong class="text-success">
+                            Submitted
+                        </strong>
+
+                    {% else %}
+
+                        <strong class="text-warning">
+                            Incomplete
+                        </strong>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="metric-description">
+
+                    <i class="fa-solid fa-file-circle-check"></i>
+
+                    Identity documents submitted.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             IDENTITY DOCUMENTS
+        ========================== -->
+
+        <section class="content-card document-verification-card">
+
+            <div class="card-header">
+
+                <div class="card-heading">
+
+                    <div class="card-heading-icon blue">
+                        <i class="fa-solid fa-file-shield"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Identity Documents
+                        </h3>
+
+                        <p>
+                            Verification status of submitted documents.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <span class="secure-tag">
+                    <i class="fa-solid fa-lock"></i>
+                    Secure
+                </span>
+
+            </div>
+
+
+            <div class="document-status-list">
+
+
+                <!-- AADHAAR -->
+
+                <div class="document-row">
+
+                    <div class="document-left">
+
+                        <div class="document-icon blue">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Aadhaar Card
+                            </h4>
+
+                            <span>
+                                Government Identity
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        {% if identity.aadhaar_front and identity.aadhaar_back %}
+
+                            <span class="doc-badge verified">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Uploaded
+                            </span>
+
+                        {% elif identity.aadhaar_front or identity.aadhaar_back %}
+
+                            <span class="doc-badge warning">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                Incomplete
+                            </span>
+
+                        {% else %}
+
+                            <span class="doc-badge danger">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                                Not Uploaded
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PAN -->
+
+                <div class="document-row">
+
+                    <div class="document-left">
+
+                        <div class="document-icon purple">
+                            <i class="fa-solid fa-address-card"></i>
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                PAN Card
+                            </h4>
+
+                            <span>
+                                Tax Identity
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        {% if identity.pan_card %}
+
+                            <span class="doc-badge verified">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Uploaded
+                            </span>
+
+                        {% else %}
+
+                            <span class="doc-badge danger">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                                Not Uploaded
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+
+                
+
+               
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FACE VERIFICATION
+        ========================== -->
+
+        <section class="content-card">
+
+            <div class="card-header">
+
+                <div class="card-heading">
+
+                    <div class="card-heading-icon green">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Face Verification
+                        </h3>
+
+                        <p>
+                            Registered photo compared with your live selfie.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <span class="ai-tag">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    AI ANALYZED
+                </span>
+
+            </div>
+
+
+            <div class="face-analysis">
+
+
+                <!-- REGISTERED PHOTO -->
+
+                <div class="photo-panel">
+
+                    <div class="photo-panel-header">
+
+                        <div>
+
+                            <span class="photo-index">
+                                01
+                            </span>
+
+                            <div>
+
+                                <h4>
+                                    Registered Photo
+                                </h4>
+
+                                <span>
+                                    My Profile
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if request.user.profile.profile_image %}
+
+                            <span class="photo-status verified">
+                                <i class="fa-solid fa-check"></i>
+                                Available
+                            </span>
+
+                        {% else %}
+
+                            <span class="photo-status missing">
+                                <i class="fa-solid fa-xmark"></i>
+                                Missing
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="photo-preview">
+
+                        {% if request.user.profile.profile_image %}
+
+                            <img src="{{ request.user.profile.profile_image.url }}"
+                                 alt="Registered Profile Photo">
+
+                        {% else %}
+
+                            <div class="empty-photo">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                <span>
+                                    No profile photo
+                                </span>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONNECTOR -->
+
+                <div class="comparison-connector">
+
+                    <div class="connector-line"></div>
+
+                    <div class="match-circle">
+                        <i class="fa-solid fa-arrows-left-right"></i>
+                    </div>
+
+                    <span>
+                        AI MATCH
+                    </span>
+
+                    <div class="connector-line"></div>
+
+                </div>
+
+
+
+                <!-- SELFIE -->
+
+                <div class="photo-panel">
+
+                    <div class="photo-panel-header">
+
+                        <div>
+
+                            <span class="photo-index">
+                                02
+                            </span>
+
+                            <div>
+
+                                <h4>
+                                    Live Selfie
+                                </h4>
+
+                                <span>
+                                    Verification Capture
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        {% if identity.live_photo %}
+
+                            <span class="photo-status verified">
+                                <i class="fa-solid fa-check"></i>
+                                Captured
+                            </span>
+
+                        {% else %}
+
+                            <span class="photo-status missing">
+                                <i class="fa-solid fa-xmark"></i>
+                                Missing
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="photo-preview">
+
+                        {% if identity.live_photo %}
+
+                            <img src="{{ identity.live_photo.url }}"
+                                 alt="Live Selfie">
+
+                        {% else %}
+
+                            <div class="empty-photo">
+
+                                <i class="fa-solid fa-camera"></i>
+
+                                <span>
+                                    No selfie captured
+                                </span>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MATCH RESULT -->
+
+            <div class="match-result">
+
+                <div class="match-result-icon">
+
+                    {% if identity.status == "Verified" %}
+
+                        <i class="fa-solid fa-check"></i>
+
+                    {% elif identity.status == "Rejected" %}
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    {% else %}
+
+                        <i class="fa-solid fa-fingerprint"></i>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="match-result-content">
+
+                    <span>
+                        AI FACE MATCH RESULT
+                    </span>
+
+                    <h3>
+
+                        {% if identity.status == "Verified" %}
+                            Face Match Successful
+                        {% elif identity.status == "Rejected" %}
+                            Face Match Failed
+                        {% else %}
+                            Face Match Under Review
+                        {% endif %}
+
+                    </h3>
+
+                    <p>
+
+                        {% if identity.ai_message %}
+                            {{ identity.ai_message }}
+                        {% else %}
+                            AI face comparison result.
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+
+                <div class="large-score">
+
+                    <strong>
+
+                        {{ identity.face_match_percentage|default_if_none:"0" }}%
+
+                    </strong>
+
+                    <span>
+                        Match Score
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ACTIONS
+        ========================== -->
+
+        <section class="result-actions">
+
+            <a href="{% url 'dashboard' %}"
+               class="action-btn secondary">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="{% url 'identity_verification' %}"
+               class="action-btn primary">
+
+                <i class="fa-solid fa-rotate"></i>
+
+                Verify Again
+
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="result-footer">
+
+        <div>
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <strong>
+                VeriTrust AI
+            </strong>
+
+            <span>
+                Secure Identity Verification
+            </span>
+
+        </div>
+
+        <span>
+            © 2026 VeriTrust AI
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================
+     PROGRESS BAR JS
+========================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const progressBar =
+        document.querySelector(".score-progress-fill");
+
+    if (!progressBar) {
+        return;
+    }
+
+    const score =
+        parseFloat(progressBar.dataset.score) || 0;
+
+    const safeScore =
+        Math.min(Math.max(score, 0), 100);
+
+    progressBar.style.width =
+        safeScore + "%";
+
+});
+
+</script>
+
+
+</body>
+</html>

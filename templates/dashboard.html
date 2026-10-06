@@ -1,0 +1,647 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VeriTrust AI Dashboard</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div>
+                <h2>VeriTrust <span>AI</span></h2>
+                <p>Employee Verification</p>
+            </div>
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">MAIN MENU</p>
+
+            <a href="{% url 'dashboard' %}" class="nav-item active">
+                <i class="fa-solid fa-table-columns"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}" class="nav-item">
+                <i class="fa-solid fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <p class="nav-title verification-title">VERIFICATION</p>
+
+            <a href="{% url 'identity_verification' %}" class="nav-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Identity</span>
+            </a>
+
+            <a href="{% url 'address_verification' %}" class="nav-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Address</span>
+            </a>
+
+            <a href="{% url 'education_verification' %}" class="nav-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Education</span>
+            </a>
+
+            <a href="{% url 'employment' %}" class="nav-item">
+                <i class="fa-solid fa-building"></i>
+                <span>Employment</span>
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Documents</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Bottom -->
+        <div class="sidebar-bottom">
+
+            <div class="security-mini">
+                <div class="security-mini-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div>
+                    <strong>Secure Platform</strong>
+                    <span>AI protected</span>
+                </div>
+            </div>
+
+            <a href="{% url 'logout' %}" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP HEADER
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div class="welcome-section">
+
+                <span class="welcome-label">
+                    EMPLOYEE DASHBOARD
+                </span>
+
+                <h1>
+                    Welcome,
+                    {% if profile %}
+                        {{ profile.first_name }} {{ profile.last_name }}
+                    {% else %}
+                        {{ request.user.username }}
+                    {% endif %}
+                    <span class="wave">👋</span>
+                </h1>
+
+                <p>
+                    Employee ID:
+                    <strong>
+                        {% if profile %}
+                            {{ profile.employee_id }}
+                        {% else %}
+                            Not Assigned
+                        {% endif %}
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="secure-status">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>System Secure</span>
+                </div>
+
+                <button class="notification-btn">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+
+                <div class="profile-mini">
+
+                    <div class="mini-avatar">
+
+                        {% if profile and profile.profile_photo %}
+                            <img src="{{ profile.profile_photo.url }}" alt="Profile">
+                        {% else %}
+                            <i class="fa-solid fa-user"></i>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="mini-info">
+
+                        <strong>
+                            {% if profile %}
+                                {{ profile.first_name }} {{ profile.last_name }}
+                            {% else %}
+                                {{ request.user.username }}
+                            {% endif %}
+                        </strong>
+
+                        <span>
+                            {{ request.user.role|default:"EMPLOYEE" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+        ================================================== -->
+
+        <section class="summary-grid">
+
+
+            <!-- Trust Score -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon blue">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+
+                <div class="summary-content">
+
+                    <span>AI TRUST SCORE</span>
+
+                    <strong>
+                        {{ ai_trust_score }}%
+                    </strong>
+
+                    <small>
+                        AI generated assessment
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- Verification -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon green">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div class="summary-content">
+
+                    <span>VERIFICATION STATUS</span>
+
+                    <strong class="status-text">
+                        {% if identity %}
+                            {{ identity.status }}
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </strong>
+
+                    <small>
+                        Current verification stage
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- Documents -->
+
+            <div class="summary-card">
+
+                <div class="summary-icon purple">
+                    <i class="fa-solid fa-file-shield"></i>
+                </div>
+
+                <div class="summary-content">
+
+                    <span>DOCUMENTS</span>
+
+                    <strong>
+                        {{ verified_documents }}/{{ total_documents }}
+                    </strong>
+
+                    <small>
+                        Verified documents
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN DASHBOARD GRID
+        ================================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- LEFT COLUMN -->
+
+            <div class="left-column">
+
+
+                <!-- Verification Progress -->
+
+                <div class="dashboard-card progress-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <span class="card-label">
+                                VERIFICATION
+                            </span>
+
+                            <h2>Verification Progress</h2>
+                        </div>
+
+                        <div class="progress-percentage">
+                            {{ profile_completion }}%
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill"
+                            data-progress="{{ profile_completion }}">
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-items">
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-item-left">
+                                <span class="status-dot blue-dot"></span>
+                                <span>Education</span>
+                            </div>
+
+                            <strong>
+                                {{ education_count }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-item-left">
+                                <span class="status-dot blue-dot"></span>
+                                <span>Employment</span>
+                            </div>
+
+                            <strong>
+                                {{ employment_count }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-item-left">
+                                <span class="status-dot purple-dot"></span>
+                                <span>Documents</span>
+                            </div>
+
+                            <strong>
+                                {{ verified_documents }}/{{ total_documents }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="progress-item last-item">
+
+                            <div class="progress-item-left">
+
+                                {% if identity and identity.status == "Verified" %}
+
+                                    <span class="status-dot green-dot"></span>
+
+                                {% else %}
+
+                                    <span class="status-dot orange-dot"></span>
+
+                                {% endif %}
+
+                                <span>Identity</span>
+
+                            </div>
+
+
+                            <strong>
+
+                                {% if identity %}
+                                    {{ identity.status }}
+                                {% else %}
+                                    Pending
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Recent Activity -->
+
+                <div class="dashboard-card activity-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <span class="card-label">
+                                ACTIVITY
+                            </span>
+
+                            <h2>Recent Activity</h2>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-list">
+
+                        {% for activity in activities %}
+
+                            <div class="activity-item">
+
+                                <div class="activity-icon">
+                                    <i class="fa-solid fa-shield-check"></i>
+                                </div>
+
+                                <div class="activity-content">
+
+                                    <strong>
+                                        Identity Verification
+                                    </strong>
+
+                                    <p>
+                                        Verification request submitted
+                                        {% if identity %}
+                                            · Status: {{ identity.status }}
+                                        {% endif %}
+                                    </p>
+
+                                    <span>
+                                        {{ activity.created_at }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        {% empty %}
+
+                            <div class="empty-activity">
+
+                                <div class="empty-icon">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+
+                                <div>
+                                    <strong>No recent activity</strong>
+                                    <p>
+                                        Your verification activity will appear here.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT COLUMN -->
+
+            <div class="right-column">
+
+
+                <!-- Current Verification -->
+
+                <div class="dashboard-card status-card">
+
+                    <div class="card-heading">
+
+                        <div>
+                            <span class="card-label">
+                                CURRENT STATUS
+                            </span>
+
+                            <h2>Verification</h2>
+                        </div>
+
+                        <div class="status-shield">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-main">
+
+                        <div class="status-circle">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                        </div>
+
+
+                        <h3>
+
+                            {% if identity %}
+                                {{ identity.status }}
+                            {% else %}
+                                Pending
+                            {% endif %}
+
+                        </h3>
+
+
+                        <p>
+                            Your verification status will update
+                            automatically after verification checks.
+                        </p>
+
+                    </div>
+
+
+                    <a href="{% url 'identity_verification' %}"
+                       class="verification-btn">
+
+                        <span>View Verification</span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- Profile Completion -->
+
+                <div class="dashboard-card completion-card">
+
+                    <div class="completion-icon">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+
+                    <div class="completion-content">
+
+                        <span>PROFILE COMPLETION</span>
+
+                        <strong>
+                            {{ profile_completion }}%
+                        </strong>
+
+                        <p>
+                            Complete your profile to speed up
+                            the verification process.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER SECURITY
+        ================================================== -->
+
+        <div class="dashboard-footer">
+
+            <div>
+                <i class="fa-solid fa-lock"></i>
+                <span>
+                    Your verification data is securely protected.
+                </span>
+            </div>
+
+            <span>
+                VeriTrust AI © 2026
+            </span>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const progressFill =
+        document.querySelector(".progress-fill");
+
+    if (progressFill) {
+
+        const progress =
+            parseFloat(
+                progressFill.dataset.progress || 0
+            );
+
+        progressFill.style.width =
+            Math.min(
+                Math.max(progress, 0),
+                100
+            ) + "%";
+    }
+
+});
+
+</script>
+
+</body>
+</html>

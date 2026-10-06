@@ -1,0 +1,558 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | VeriTrust AI</title>
+
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/my_profile.css' %}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- Sidebar -->
+    
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div>
+                <h2>VeriTrust <span>AI</span></h2>
+                <p>Employee Verification</p>
+            </div>
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">MAIN MENU</p>
+
+            <a href="{% url 'dashboard' %}" class="nav-item active">
+                <i class="fa-solid fa-table-columns"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'my_profile' %}" class="nav-item">
+                <i class="fa-solid fa-user"></i>
+                <span>My Profile</span>
+            </a>
+
+            <p class="nav-title verification-title">VERIFICATION</p>
+
+            <a href="{% url 'identity_verification' %}" class="nav-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Identity</span>
+            </a>
+
+            <a href="{% url 'address_verification' %}" class="nav-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Address</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Education</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-building"></i>
+                <span>Employment</span>
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Documents</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Bottom -->
+        <div class="sidebar-bottom">
+
+            <div class="security-mini">
+                <div class="security-mini-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div>
+                    <strong>Secure Platform</strong>
+                    <span>AI protected</span>
+                </div>
+            </div>
+
+            <a href="{% url 'logout' %}" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+
+
+    <!-- Main Content -->
+
+    <main class="content">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        <!-- Top Header -->
+
+        <header class="top-header">
+
+            <h1>
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </h1>
+
+
+        </header>
+
+
+
+
+
+        <!-- Profile Header -->
+
+        <section class="profile-card">
+
+
+            <div class="employee-info">
+
+
+                <h2>
+                    {{ profile.first_name }}
+                    {{ profile.last_name }}
+
+                </h2>
+
+
+                <p class="email">
+                    {{ request.user.email }}
+                </p>
+
+
+
+                <div class="info-boxes">
+
+
+                    <div class="small-card">
+
+                        <span>Role</span>
+                        <strong>{{ request.user.role }}</strong>
+
+                    </div>
+
+
+
+                    <div class="small-card">
+
+                        <span>Member Since</span>
+                        <strong>{{ request.user.created_at|date:"d M Y" }}</strong>
+
+                    </div>
+
+
+
+                    <div class="small-card">
+
+                        <span>Employee ID</span>
+                        <strong>VT{{ request.user.id|stringformat:"05d" }}</strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="profile-image-box">
+
+
+                <img id="profilePreview"
+                     src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/profile.jpg' %}{% endif %}"
+                     alt="Profile">
+                     
+
+
+                <button type="button" class="camera-btn" onclick="openProfileUpload()">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                </button>
+
+                <input type="file"
+                       id="profileUpload"
+                       name="profile_photo"
+                       accept="image/*"
+                       hidden>
+
+
+            </div>
+
+
+
+        </section>
+
+
+
+
+
+
+
+        <!-- Personal Information -->
+
+
+        <section class="glass-card">
+
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-address-card"></i>
+
+                <h2>
+                    Personal Information
+                </h2>
+
+            </div>
+
+
+
+
+
+            <div class="form-grid">
+
+
+                <div class="input-box">
+
+                    <label>
+                        First Name
+                    </label>
+
+                    <input type="text" name="first_name" value="{{ profile.first_name|default:'' }}">
+
+
+                </div>
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Middle Name
+                    </label>
+
+                    <input type="text" name="middle_name" value="{{ profile.middle_name|default:'' }}">
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Last Name
+                    </label>
+
+                    <input type="text" name="last_name" value="{{ profile.last_name|default:'' }}">
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Gender
+                    </label>
+
+                    <select name = "gender">
+
+                        <option value="Female" {% if profile.gender == "Female" %}selected{% endif %}>Female</option>
+                        <option value="Male" {% if profile.gender == "Male" %}selected{% endif %}>Male</option>
+                        <option value="Other" {% if profile.gender == "Other" %}selected{% endif %}>Other</option>
+                        
+
+                    </select>
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Date of Birth
+                    </label>
+
+                    <input type="date" name="date_of_birth" value="{% if profile.date_of_birth %}{{ profile.date_of_birth|date:'Y-m-d' }}{% endif %}">
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Blood Group
+                    </label>
+
+
+                    <select name="blood_group">
+
+                        <option value="A+" {% if profile.blood_group == "A+" %}selected{% endif %}>A+</option>
+                        <option value="A-" {% if profile.blood_group == "A-" %}selected{% endif %}>A-</option>
+                        <option value="B+" {% if profile.blood_group == "B+" %}selected{% endif %}>B+</option>
+                        <option value="B-" {% if profile.blood_group == "B-" %}selected{% endif %}>B-</option>
+                        <option value="AB+" {% if profile.blood_group == "AB+" %}selected{% endif %}>AB+</option>
+                        <option value="AB-" {% if profile.blood_group == "AB-" %}selected{% endif %}>AB-</option>
+                        <option value="O+" {% if profile.blood_group == "O+" %}selected{% endif %}>O+</option>
+                        <option value="O-" {% if profile.blood_group == "O-" %}selected{% endif %}>O-</option>
+                        
+
+                    </select>
+
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Marital Status
+                    </label>
+
+
+                    <select name = "marital_status">
+
+                        <option value="Single" {% if profile.marital_status == "Single" %}selected{% endif %}>Single</option>
+                        <option value="Married" {% if profile.marital_status == "Married" %}selected{% endif %}>Married</option>
+                        
+
+                    </select>
+
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Nationality
+                    </label>
+
+
+                    <input type="text"
+                           name="nationality"
+                           value = "{{ profile.nationality|default:'' }}">
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+        <!-- Contact Information -->
+
+
+        <section class="glass-card">
+
+
+            <div class="section-title">
+
+
+                <i class="fa-solid fa-phone"></i>
+
+
+                <h2>
+                    Contact Information
+                </h2>
+
+
+            </div>
+
+
+
+
+
+            <div class="form-grid contact-grid">
+
+
+                <div class="input-box">
+
+
+                    <label>
+                        Email Address
+                    </label>
+
+
+                    <input type="email"
+                           value="{{ request.user.email }}"
+                           readonly>
+
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+                    <label>
+                        Mobile Number
+                    </label>
+
+
+                    <input type="text"
+                           name = "mobile"
+                           value="{{ request.user.mobile }}">
+
+
+                </div>
+
+
+
+
+
+                <div class="input-box">
+
+
+                    <label>
+                        Alternate Mobile Number
+                    </label>
+
+
+                    <input type="text" name="alternate_mobile" value="{{ profile.alternate_mobile|default:'' }}">
+
+                </div>
+
+
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+
+        <!-- Save Button -->
+
+
+        <button type="submit" class="save-btn">
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            Save Changes
+
+        </button>
+
+        </form>
+
+
+
+
+    </main>
+
+
+</div>
+<script>
+
+function openProfileUpload(){
+
+    document.getElementById("profileUpload").click();
+
+}
+
+
+document.getElementById("profileUpload")
+.addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(file){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            document.getElementById("profilePreview").src = e.target.result;
+
+        }
+
+        reader.readAsDataURL(file);
+
+    }
+
+});
+
+
+</script>
+</body>
+</html>
